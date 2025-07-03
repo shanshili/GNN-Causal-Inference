@@ -5,9 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e056ed8-12f7-42a2-a557-df1eeaaceeb7" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/GNN-Causal-Inference.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/GNN-Causal-Inference.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/causal_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/causal_graph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/combined_lag_functions.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/compare_lag_functions.png" beforeDir="false" afterPath="$PROJECT_DIR$/compare_lag_functions.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lag_functions_plot.png" beforeDir="false" afterPath="$PROJECT_DIR$/lag_functions_plot.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/significant_correlations_graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/significant_correlations_graph.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tutorial-test/250702.py" beforeDir="false" afterPath="$PROJECT_DIR$/tutorial-test/250702.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -51,7 +54,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
     "last_opened_file_path": "C:/Work-lcr/Tjnu-p/Mp/GNN-Causal-Inference",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
   <component name="SharedIndexes">

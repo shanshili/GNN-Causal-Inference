@@ -73,8 +73,8 @@ dataframe = pp.DataFrame(data,
 tp.plot_timeseries(dataframe=dataframe) # 将生成的数据可视化为时间序列图
 plt.suptitle("Observed Time Series Data", fontsize=16)
 plt.tight_layout()
-plt.savefig('timeseries_plot.png', dpi=300, bbox_inches='tight')
-plt.show()
+# plt.savefig('timeseries_plot.png', dpi=300, bbox_inches='tight')
+# plt.show()
 
 
 """
@@ -90,14 +90,26 @@ pcmci = PCMCI(
     cond_ind_test=parcorr,
     verbosity=0)
 original_correlations = pcmci.get_lagged_dependencies(tau_max=tau_max, val_only=True)['val_matrix']
-lag_func_matrix = tp.plot_lagfuncs(val_matrix=original_correlations, setup_args={
-            'var_names':var_names,'x_base':5, 'y_base':.5})
+
+# 先创建一个空白画布
+lag_func_matrix = tp.setup_matrix(
+    N=N,
+    tau_max=tau_max,
+    x_base=5,
+    figsize=(10, 10),
+    var_names=var_names,
+    y_base=5
+)
+
+# 然后手动添加滞后函数曲线
+lag_func_matrix.add_lagfuncs(
+    val_matrix=original_correlations,
+    color='black'
+)
+
+# 添加总标题
+plt.suptitle("Lagged Correlation Functions", fontsize=16, y=0.98)
 # lag_func_matrix.savefig('lag_functions_plot.png')
-# 添加标题
-plt.suptitle("Lagged Correlation Functions", fontsize=16)
-plt.tight_layout()  # 自动调整子图间距
-plt.gcf().savefig('lag_functions_plot.png', dpi=300, bbox_inches='tight')
-plt.show()
 
 """
 *****************************************************************
@@ -105,12 +117,24 @@ plt.show()
 不是真实的因果图，而是通过PCMCI+算法从观测数据中学习到的因果图
 """
 results = pcmci.run_pcmciplus(tau_max=tau_max, pc_alpha=0.01)
-tp.plot_graph(results['graph'])
+tp.plot_graph(results['graph'],
+              val_matrix=results['val_matrix'],
+              var_names=var_names,
+              link_colorbar_label='MCI',
+              node_colorbar_label='auto-MCI',
+              link_label_fontsize=14,
+              label_fontsize=14,
+              tick_label_size=14,
+              node_label_size=14,
+              edge_ticks=0.5,
+              node_ticks=0.5,
+              node_size=0.3
+              )
 # 添加标题
-plt.title("Estimated Causal Graph using PCMCI+", fontsize=14, pad=20)
+plt.title("Estimated Causal Graph using PCMCI+", fontsize=14)
 plt.tight_layout()
-plt.savefig('causal_graph.png', dpi=300, bbox_inches='tight')
-plt.show()
+# plt.savefig('causal_graph.png', dpi=300, bbox_inches='tight')
+# plt.show()
 
 
 """
@@ -160,10 +184,9 @@ lag_func_matrix.add_lagfuncs(val_matrix=correlation_interval[1], color='grey')
 lag_func_matrix.add_lagfuncs(val_matrix=original_correlations, color='red')
 # lag_func_matrix.savefig('compare_lag_functions.png')
 # 添加标题
-plt.suptitle("Lagged Correlation Comparison", fontsize=16)
-plt.tight_layout()  # 自动调整子图间距
-plt.gcf().savefig('compare_lag_functions.png', dpi=300, bbox_inches='tight')
-plt.show()
+plt.suptitle("Lagged Correlation Comparison", fontsize=16, y=0.95)
+# plt.gcf().savefig('compare_lag_functions.png', dpi=300, bbox_inches='tight')
+# plt.show()
 
 
 """
@@ -174,8 +197,25 @@ pcmci = PCMCI(
     dataframe=dataframe,
     cond_ind_test=parcorr,
     verbosity=0)
-original_correlations_pvals = pcmci.get_lagged_dependencies(tau_max=tau_max)['p_matrix']  # 计算滞后依赖的 p 值（显著性检验）
-tp.plot_graph(graph=original_correlations_pvals<=0.01); # 绘制显著相关性图（根据 p 值 ≤ 0.01 的阈值）
+#original_correlations_pvals = pcmci.get_lagged_dependencies(tau_max=tau_max)['p_matrix']  # 计算滞后依赖的 p 值（显著性检验）  越小越相关
+# 获取偏相关系数和对应的 p 值
+dependencies = pcmci.get_lagged_dependencies(tau_max=tau_max, val_only=False)
+original_correlations = dependencies['val_matrix']
+original_correlations_pvals = dependencies['p_matrix']
+# print(original_correlations)
+tp.plot_graph(graph=original_correlations_pvals<=0.01,
+              val_matrix=original_correlations,
+              var_names=var_names,
+              link_colorbar_label='Partial correlation',
+              node_colorbar_label='auto-correlation',
+              link_label_fontsize=14,
+              label_fontsize=14,
+              tick_label_size=14,
+              node_label_size=14,
+              edge_ticks=0.5,
+              node_ticks=0.5,
+              node_size=0.3
+              ) # 绘制显著相关性图（根据 p 值 ≤ 0.01 的阈值）
 # 将 p 值小于等于 0.01 的边标记为显著相关，绘制这些显著关系构成的图结构
 plt.title("Significant correlation graph", fontsize=14, pad=20)
 plt.tight_layout()
