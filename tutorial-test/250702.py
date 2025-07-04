@@ -2,18 +2,15 @@
 import numpy as np
 import matplotlib
 from matplotlib import pyplot as plt
-
 import tigramite
+from sympy.codegen.cnodes import sizeof
 from tigramite import data_processing as pp
 from tigramite.toymodels import structural_causal_processes as toys
-
 from tigramite.toymodels import surrogate_generator
-
 from tigramite import plotting as tp
 from tigramite.pcmci import PCMCI
 from tigramite.independence_tests.parcorr import ParCorr
 from tigramite.models import Models, Prediction
-
 import math
 import sklearn
 from sklearn.linear_model import LinearRegression
@@ -23,9 +20,9 @@ from sklearn.linear_model import LinearRegression
 matplotlib.rcParams['axes.unicode_minus'] = False
 np.random.seed(14)     # Fix random seed
 lin_f = lambda x: x
-# Define the links and coefficients for the structural causal process
 """
 因果关系定义
+Define the links and coefficients for the structural causal process
 """
 links_coeffs = {
                 0: [((0, -1), 0.7, lin_f)],
@@ -43,15 +40,20 @@ T = 200     # time series length
 noises = np.array([(1. + 0.2*float(j))*np.random.randn((T + int(math.floor(0.2*T))))
                    for j in range(len(links_coeffs))]).T
 
-# Generate the structural causal process
+
 """
 时间序列生成
+Generate the structural causal process
+
+该函数根据给定的结构方程模型（SEM）定义生成时间序列数据。它实现了结构性因果过程（Structural Causal Process, SCP），
+按照指定的因果关系和噪声项生成符合这些关系的合成时间序列数据。
+
+links_coeffs: 因果关系定义，包含每个变量的父节点及其对应的系数和函数
+T: 时间序列长度（200）
+noises: 噪声数据，形状为(240,5)，具有不同方差的高斯噪声
+seed: 随机种子（14），确保结果可复现
 """
-# 该函数根据给定的结构方程模型（SEM）定义生成时间序列数据。它实现了结构性因果过程（Structural Causal Process, SCP），按照指定的因果关系和噪声项生成符合这些关系的合成时间序列数据。
-# links_coeffs: 因果关系定义，包含每个变量的父节点及其对应的系数和函数
-# T: 时间序列长度（200）
-# noises: 噪声数据，形状为(240,5)，具有不同方差的高斯噪声
-# seed: 随机种子（14），确保结果可复现
+
 data, _ = toys.structural_causal_process(links_coeffs, T=T, noises=noises, seed=14)
 T, N = data.shape
 
@@ -117,6 +119,7 @@ plt.suptitle("Lagged Correlation Functions", fontsize=16, y=0.98)
 不是真实的因果图，而是通过PCMCI+算法从观测数据中学习到的因果图
 """
 results = pcmci.run_pcmciplus(tau_max=tau_max, pc_alpha=0.01)
+print(results['val_matrix'].shape)
 tp.plot_graph(results['graph'],
               val_matrix=results['val_matrix'],
               var_names=var_names,
@@ -132,24 +135,67 @@ tp.plot_graph(results['graph'],
               )
 # 添加标题
 plt.title("Estimated Causal Graph using PCMCI+", fontsize=14)
-plt.tight_layout()
 # plt.savefig('causal_graph.png', dpi=300, bbox_inches='tight')
 # plt.show()
 
+# tp.plot_time_series_graph(
+#         figsize=(4, 4),
+#         val_matrix=results['val_matrix'],
+#         graph = results['graph'],
+#         var_names=var_names,
+#         link_colorbar_label='MCI',
+#         label_fontsize=20,
+#         tick_label_size=20
+# )
+# # 添加标题
+# plt.title("Estimated Time Series Causal Graph using PCMCI+", fontsize=14)
 
 """
 *****************************************************************
 """
 # 正确版本的问题代码段
 true_graph = toys.links_to_graph(links_coeffs)  # 从link定义创建真实图
+
+# # 从 links_coeffs 提取信息构建 val_matrix
+# def build_val_matrix(links_coeffs, tau_max=10):
+#     N = len(links_coeffs)  # 变量数量
+#     true_val_matrix = np.zeros((N, N, tau_max + 1))  # 初始化全零矩阵
+#
+#     for j in links_coeffs:
+#         for ((i, tau), coeff, _) in links_coeffs[j]:
+#             if tau < 0 and abs(tau) <= tau_max:
+#                 lag = abs(tau)
+#                 true_val_matrix[i, j, lag] = coeff  # 填充对应位置的系数
+#
+#     return true_val_matrix
+#
+# # 构建 val_matrix
+# true_val_matrix_from_links = build_val_matrix(links_coeffs, tau_max=10)
+# print(true_val_matrix_from_links)
+# tp.plot_graph(true_graph,
+#               val_matrix=true_val_matrix_from_links,
+#               var_names=var_names,
+#               link_colorbar_label='Weight',
+#               node_colorbar_label='Weight',
+#               link_label_fontsize=14,
+#               label_fontsize=14,
+#               tick_label_size=14,
+#               node_label_size=14,
+#               edge_ticks=0.5,
+#               node_ticks=0.5,
+#               node_size=0.3
+#               )
+# plt.title("True Graph", fontsize=14)
+# plt.savefig('true_graph.png', dpi=300, bbox_inches='tight')
+# plt.show()
 parents = toys.dag_to_links(true_graph)  # 获取父节点关系
 print("True parents:", parents)
 
 
 realizations = 100
 
-# Generate surrogate data
 """
+Generate surrogate data
 基于观测数据和已知的因果结构生成代理数据集（surrogate data）。
 这些代理数据保留了原始数据的基本统计特性（如协方差结构），但打乱或保持了变量间的特定关系，用于假设检验、置信区间估计或模型验证。
 """
@@ -164,7 +210,6 @@ for r in range(realizations):
 """
 相关性对比
 """
-# Calculate correlations for each realization
 # 对每个替代数据集计算滞后相关
 correlations = np.zeros((realizations, N, N, tau_max + 1))
 for r in range(realizations):
@@ -219,6 +264,18 @@ tp.plot_graph(graph=original_correlations_pvals<=0.01,
 # 将 p 值小于等于 0.01 的边标记为显著相关，绘制这些显著关系构成的图结构
 plt.title("Significant correlation graph", fontsize=14, pad=20)
 plt.tight_layout()
-plt.savefig('significant_correlations_graph.png', dpi=300, bbox_inches='tight')
-plt.show()
+# plt.savefig('significant_correlations_graph.png', dpi=300, bbox_inches='tight')
+# plt.show()
 
+# tp.plot_time_series_graph(
+#         figsize=(4, 4),
+#         val_matrix=original_correlations,
+#         graph = original_correlations_pvals<=0.01,
+#         var_names=var_names,
+#         link_colorbar_label='Partial correlation',
+#         label_fontsize=20,
+#         tick_label_size=20
+# )
+# # 添加标题
+# plt.title("Significant Time Series correlation graph", fontsize=14)
+# plt.show()
