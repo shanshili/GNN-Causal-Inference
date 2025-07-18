@@ -1,0 +1,9 @@
+__pychche__/**
+.idea/**
+venv/**
+dataset/**
+reference/** 
+*.memmap
+*.npz
+*.pth
+
