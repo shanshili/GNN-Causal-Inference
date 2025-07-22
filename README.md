@@ -1,5 +1,63 @@
 # GNN-Causal-Inference
 
+```
+GNN-Causal-Inference/
+├── Module/
+│   ├── PCMCI-val.py            # PCMCI验证模块(含时间序列生成、因果图估计等)
+│   ├── PCMCI.py                # 主PCMCI实现模块(处理真实数据)
+│   ├── SCMI.py                 # 空间因果互信息算法实现
+│   ├── pcmci_results.py        # PCMCI结果可视化模块
+│   └── PCMCI/                  # 结果输出目录
+├── dataset/
+│   ├── TJ/                     # 天津数据集
+│   │   ├── TJ_position.csv     # 节点位置数据
+│   │   └── sampled_tensor_data_tem.npy  # 采样数据
+│   └── Intel Lab Data/         # Intel实验室数据
+│       ├── re/                 # 预处理数据
+│       ├── other/              # 其他数据
+│       ├── dataprocess/        # 数据处理
+│       └── timestamps_process/ # 时间戳处理
+└── utils/
+    └── haversine_distance.py   # 地理距离计算工具
+
+```
+
+## 核心模块说明
+
+### 1. PCMCI-val.py
+验证PCMCI算法的模块，包含：
+- 合成时间序列生成
+- 滞后相关性分析
+- 因果图估计与可视化
+- 代理数据生成与比较
+
+### 2. PCMCI.py
+主PCMCI实现模块：
+- 读取真实时空数据
+- 基于地理距离的链接假设
+- 运行PCMCI+算法
+- 生成网络因果图和矩阵热力图
+
+### 3. SCMI.py
+空间因果互信息算法：
+- 节点特征提取(时间序列聚合)
+- 空间关联图构建
+- 全局Moran's I计算
+- 离散化数据处理
+- 因果图生成
+
+### 4. pcmci_results.py
+PCMCI结果可视化模块：
+- 因果图网络可视化
+- 节点/边统计信息
+- 因果矩阵热力图生成
+
+## 数据集
+- **TJ数据集**：天津地区时空数据
+- **Intel Lab Data**：Intel实验室传感器数据
+
+# 实验报告
+
 ## 实验1：PCMCI+算法验证
 
 > 参考：

@@ -1,3 +1,8 @@
+"""
+2022 TJ dataprocess
+构建【节点数, 时间步数, 特征维度】三位npy
+"""
+
 import os
 import pandas as pd
 from tqdm import tqdm

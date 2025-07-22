@@ -30,7 +30,7 @@ This script provides comprehensive analysis and visualization of 3D sensor data 
 Usage: Modify the analyze_sensor_data() call to enable/disable specific heatmap generations.
 """
 """
-传感器数据分析与可视化工具
+传感器时间戳(epoch)分布分析与可视化工具
 ==========================
 
 本脚本提供三维传感器数据的全面分析和可视化功能：

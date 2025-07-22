@@ -1,3 +1,7 @@
+"""
+2022 TJ dataprocess
+所有节点合并为一个CSV
+"""
 import os
 import pandas as pd
 from tqdm import tqdm
