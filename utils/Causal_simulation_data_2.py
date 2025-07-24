@@ -15,7 +15,7 @@ output_dir = os.path.join(project_root, 'dataset', 'Causal_simulation_data_2')
 os.makedirs(output_dir, exist_ok=True)
 
 # 设置随机种子确保可重复性
-np.random.seed(42)
+np.random.seed(123)
 
 # 参数设置
 N = 100  # 节点数量
@@ -48,13 +48,17 @@ for i in range(N):
     used_self_lags = set()
 
     for _ in range(num_self_lags):
-        auto_coeff = np.random.uniform(0.2, 0.5)
+        auto_coeff = np.random.uniform(0.1, 0.25)
         # 确保不会重复使用相同的时间滞后
         available_lags = [x for x in range(1, tau_max + 1) if x not in used_self_lags]
+        # 偶尔添加负的自回归项
+        if np.random.rand() < 0.2:  # 20%概率为负
+            auto_coeff = -auto_coeff
+
         if available_lags:
             lag = np.random.choice(available_lags)
             if lag > 0 and lag <= tau_max:
-                links_coeffs[i].append(((i, -lag), auto_coeff, lambda x: x))
+                links_coeffs[i].append(((int(i), int(-lag)), auto_coeff, lambda x: x))
                 used_self_lags.add(lag)
 
     # 添加空间邻近节点的相互影响
@@ -63,7 +67,7 @@ for i in range(N):
     nearby_nodes = np.where(distances < 15)[0]
 
     # 控制每个节点的连接数 (最多3个连接)
-    max_connections = tau_max
+    max_connections = 3
     potential_nodes = [j for j in nearby_nodes if j != i]
     np.random.shuffle(potential_nodes)
 
@@ -81,8 +85,14 @@ for i in range(N):
             used_lags = set()  # 避免同一对节点在同一时间滞后上重复连接
 
             for _ in range(num_lags):
-                # 随机选择影响系数 (0.1 - 0.2)
-                coeff = np.random.uniform(0.1, 0.2)
+                # 随机选择影响系数，允许正负效应
+                if np.random.rand() < 0.5:
+                    # 正向效应
+                    coeff = np.random.uniform(0.05, 0.15)
+                else:
+                    # 负向效应
+                    coeff = -np.random.uniform(0.03, 0.1)
+
                 # 获取可用的时间滞后
                 available_lags = [x for x in range(1, tau_max + 1) if x not in used_lags]
                 if not available_lags:
@@ -90,34 +100,34 @@ for i in range(N):
 
                 lag = np.random.choice(available_lags)
                 if lag > 0 and lag <= tau_max:
-                    links_coeffs[i].append(((j, -lag), coeff, lambda x: x))
+                    links_coeffs[i].append(((int(j), int(-lag)), coeff, lambda x: x))
                     used_lags.add(lag)
                     parent_map[i].add(j)  # 记录 j 是 i 的父节点
 
 
-# 打印每个节点的滞后详情
-print("\n每个节点的滞后详情:")
-for i in range(min(10, N)):  # 只打印前10个节点以免输出过多
-    print(f"\n节点 {i}:")
-    if i in links_coeffs and links_coeffs[i]:
-        self_lags = []  # 自回归滞后
-        external_lags = []  # 外部连接滞后
-
-        for link in links_coeffs[i]:
-            (source_node, tau), coeff, func = link
-            lag = tau
-            if source_node == i:
-                self_lags.append(lag)
-            else:
-                external_lags.append(lag)
-
-        if self_lags:
-            print(f"  自回归滞后: {sorted(self_lags)}")
-        if external_lags:
-            print(f"  外部连接滞后: {sorted(external_lags)}")
-        print(f"  总连接数: {len(links_coeffs[i])}")
-    else:
-        print("  无连接")
+# # 打印每个节点的滞后详情
+# print("\n每个节点的滞后详情:")
+# for i in range(min(10, N)):  # 只打印前10个节点以免输出过多
+#     print(f"\n节点 {i}:")
+#     if i in links_coeffs and links_coeffs[i]:
+#         self_lags = []  # 自回归滞后
+#         external_lags = []  # 外部连接滞后
+#
+#         for link in links_coeffs[i]:
+#             (source_node, tau), coeff, func = link
+#             lag = tau
+#             if source_node == i:
+#                 self_lags.append(lag)
+#             else:
+#                 external_lags.append(lag)
+#
+#         if self_lags:
+#             print(f"  自回归滞后: {sorted(self_lags)}")
+#         if external_lags:
+#             print(f"  外部连接滞后: {sorted(external_lags)}")
+#         print(f"  总连接数: {len(links_coeffs[i])}")
+#     else:
+#         print("  无连接")
 
 
 # 在生成噪声前先计算 total_time_steps
@@ -128,10 +138,16 @@ print(f"总时间步数: {total_time_steps} (T={T}, transient_fraction={transien
 # 2. 生成噪声 - 使用绝对值和基线值确保正数
 noises = np.zeros((total_time_steps, N))
 for j in range(N):
-    base_value = 5.0 + 0.5 * j  # 降低基线值
-    noise_scale = 1  # 噪声幅度
-    # 使用对数正态分布确保正数且更可控
-    noises[:, j] = base_value + np.random.lognormal(mean=0, sigma=noise_scale, size=total_time_steps)
+    base_value = 0.01
+    noise_scale = 0.01  # 噪声幅度
+
+    # 使用正态分布而不是对数正态分布，更容易控制
+    noise = np.random.normal(0, noise_scale, total_time_steps)
+    noises[:, j] = base_value + noise  # 直接使用正态分布噪声
+
+    # 严格限制噪声范围
+    noises[:, j] = np.clip(noises[:, j], -0.05, 0.05)
+
     print(f"节点{j} - 均值: {noises[:,j].mean():.2f}, 标准差: {noises[:,j].std():.2f}")
     # # 使用混合噪声分布
     # noise_type = np.random.rand()
@@ -163,34 +179,34 @@ for j in range(N):
 #     raise
 
 
-# 调试代码：检查所有滞后值
-print("\n=== 调试信息：检查滞后值 ===")
-positive_lags = []
-all_lags = []
-
-for i in links_coeffs:
-    for link in links_coeffs[i]:
-        (source_node, tau), coeff, func = link
-        all_lags.append(tau)
-        if tau > 0:  # 找出正值
-            positive_lags.append((i, source_node, tau, coeff))
-
-print(f"总连接数: {len(all_lags)}")
-print(f"所有滞后值范围: {min(all_lags) if all_lags else 0} 到 {max(all_lags) if all_lags else 0}")
-
-if positive_lags:
-    print(f"发现 {len(positive_lags)} 个正滞后值:")
-    for target, source, lag, coeff in positive_lags[:10]:  # 只显示前10个
-        print(f"  节点{target} <- 节点{source}, 滞后={lag}, 系数={coeff:.3f}")
-else:
-    print("未发现正滞后值")
-
-# 检查是否有零值
-zero_lags = [tau for tau in all_lags if tau == 0]
-if zero_lags:
-    print(f"发现 {len(zero_lags)} 个零滞后值")
-
-print("=== 调试信息结束 ===\n")
+# # 调试代码：检查所有滞后值
+# print("\n=== 调试信息：检查滞后值 ===")
+# positive_lags = []
+# all_lags = []
+#
+# for i in links_coeffs:
+#     for link in links_coeffs[i]:
+#         (source_node, tau), coeff, func = link
+#         all_lags.append(tau)
+#         if tau > 0:  # 找出正值
+#             positive_lags.append((i, source_node, tau, coeff))
+#
+# print(f"总连接数: {len(all_lags)}")
+# print(f"所有滞后值范围: {min(all_lags) if all_lags else 0} 到 {max(all_lags) if all_lags else 0}")
+#
+# if positive_lags:
+#     print(f"发现 {len(positive_lags)} 个正滞后值:")
+#     for target, source, lag, coeff in positive_lags[:10]:  # 只显示前10个
+#         print(f"  节点{target} <- 节点{source}, 滞后={lag}, 系数={coeff:.3f}")
+# else:
+#     print("未发现正滞后值")
+#
+# # 检查是否有零值
+# zero_lags = [tau for tau in all_lags if tau == 0]
+# if zero_lags:
+#     print(f"发现 {len(zero_lags)} 个零滞后值")
+#
+# print("=== 调试信息结束 ===\n")
 
 # 3. 生成时间序列数据
 try:
@@ -198,7 +214,7 @@ try:
         links=links_coeffs,
         T=T,
         noises=noises,
-        seed=42,
+        seed=1,
         transient_fraction=transient_fraction
     )
 
@@ -236,11 +252,17 @@ plt.savefig(os.path.join(output_dir, 'node_positions.png'))
 plt.close()
 
 # 2. 使用tigramite绘制时间序列 - 全部节点
-plt.figure(figsize=(18, 12))
-tp.plot_timeseries(dataframe=dataframe)
-plt.suptitle('Simulated Time Series Data (All Nodes)', fontsize=16, y=0.98)
+plt.figure(figsize=(22, 12))
+tp.plot_timeseries(
+    dataframe=dataframe,
+    figsize=(22, 12),
+    label_fontsize=1     # 坐标轴标签字体大小
+)
+plt.suptitle('Simulated Time Series Data (All Nodes)', fontsize=6, y=0.98)
+plt.xticks(fontsize=1)  # 手动设置刻度字体大小
+plt.yticks(fontsize=1)
 plt.subplots_adjust(top=0.95, bottom=0.05, left=0.05, right=0.95)
-plt.savefig(os.path.join(output_dir, 'timeseries_plot_all.png'), dpi=150)
+plt.savefig(os.path.join(output_dir, 'timeseries_plot_all.png'), dpi=800)
 plt.close()
 
 # 3. 使用tigramite绘制时间序列 - 前10个节点
@@ -253,7 +275,7 @@ subset_data = pp.DataFrame(
 
 plt.figure(figsize=(14, 8))
 tp.plot_timeseries(dataframe=subset_data)
-plt.suptitle('Simulated Time Series Data (First 10 Nodes)', fontsize=16)
+plt.suptitle('Simulated Time Series Data (First 10 Nodes)', fontsize=10)
 plt.tight_layout()
 plt.savefig(os.path.join(output_dir, 'timeseries_plot_first10.png'))
 plt.close()
@@ -310,10 +332,23 @@ def plot_causal_graph_with_positions(links_coeffs, node_positions, output_dir, t
     # 使用真实坐标作为节点位置
     pos = {i: (node_positions[i, 0], node_positions[i, 1]) for i in range(N)}
 
+    # 计算每个节点的出边数量（出边表示该节点影响其他节点的数量）
+    out_degree = np.zeros(N)
+    for u, v, key, data in G.edges(keys=True, data=True):
+        out_degree[u] += 1  # 节点u有一条出边
+
     # 设置绘图参数
     plt.figure(figsize=(12, 10))
     # 绘制节点
-    nx.draw_networkx_nodes(G, pos, node_size=300, node_color='lightgreen', alpha=0.8)
+    # nx.draw_networkx_nodes(G, pos, node_size=300, node_color='lightgreen', alpha=0.8)
+    # 绘制节点，颜色根据出边数量
+    # node_sizes = 300 + out_degree * 20  # 基础大小300，根据出边数增加大小
+    vmax = np.max(out_degree) if np.max(out_degree) > 0 else 1
+    node_colors = plt.cm.autumn(out_degree / vmax) if vmax > 0 else plt.cm.autumn(np.zeros(N))
+
+    nx.draw_networkx_nodes(G, pos, node_size=50, node_color=out_degree,
+                           cmap=plt.cm.autumn, alpha=0.8)
+
     nx.draw_networkx_labels(G, pos, font_size=8)
 
     # 分别处理自相关边（自循环）和普通边
@@ -328,22 +363,31 @@ def plot_causal_graph_with_positions(links_coeffs, node_positions, output_dir, t
 
     # 获取所有权重用于颜色映射
     all_weights = [abs(data['weight']) for u, v, key, data in G.edges(keys=True, data=True)]
-    max_weight = max(all_weights) if all_weights else 1
+    if all_weights:
+        min_weight = min(all_weights)
+        max_weight = max(all_weights)
 
-    # 创建颜色映射（基于权重大小）
-    cmap = plt.cm.viridis
-    norm = plt.Normalize(vmin=0, vmax=max_weight if max_weight > 0 else 1)
+        # 确保颜色映射是对称的，以便更好地表示正负关系
+        abs_max = max(abs(min_weight), abs(max_weight))
+        vmin, vmax_edges = -abs_max, abs_max
+    else:
+        vmin, vmax_edges = -1, 1
+
+
+    # 创建颜色映射（基于权重实际值，包括正负）
+    cmap = plt.cm.seismic  # 红-黄-蓝反转，负值为蓝色，正值为红色
+    norm = plt.Normalize(vmin=vmin, vmax=vmax_edges)
 
     # 绘制普通边（节点间连接）
     for u, v, key, data in normal_edges:
         lag = data['lag']
-        weight = abs(data['weight'])  # 使用权重绝对值
+        weight = data['weight']  # 使用权重绝对值
 
         # 根据权重大小设置颜色
         color = cmap(norm(weight))
 
-        # 根据权重设置边宽度
-        width = 1 + weight * 5  # 基础宽度1，根据权重调整
+        # 根据权重绝对值设置边宽度
+        width = 1 + abs(weight) * 8  # 基础宽度1，根据权重绝对值调整
 
         # 绘制单条边
         nx.draw_networkx_edges(G, pos, edgelist=[(u, v, key)],
@@ -354,13 +398,13 @@ def plot_causal_graph_with_positions(links_coeffs, node_positions, output_dir, t
     # 绘制自相关边（自循环）
     for u, v, key, data in self_edges:
         lag = data['lag']
-        weight = abs(data['weight'])
+        weight = data['weight']
 
         # 根据权重大小设置颜色
         color = cmap(norm(weight))
 
-        # 根据权重设置边宽度
-        width = 1 + weight * 5
+        # 根据权重绝对值设置边宽度
+        width = 1 + abs(weight) * 8
 
         # 绘制自循环边
         nx.draw_networkx_edges(G, pos, edgelist=[(u, v, key)],
@@ -369,11 +413,13 @@ def plot_causal_graph_with_positions(links_coeffs, node_positions, output_dir, t
                                alpha=0.7, arrows=True, arrowsize=20,
                                connectionstyle=f'arc3,rad=0.3')  # 弯曲的自循环
 
-    # 添加边标签（包含时间滞后）
+    # 添加边标签（包含时间滞后和效应符号）
     edge_labels = {}
     for u, v, key, data in G.edges(keys=True, data=True):
         lag = data['lag']
-        edge_labels[(u, v, key)] = f"τ{lag}"
+        weight = data['weight']
+        sign = '+' if weight >= 0 else '-'
+        edge_labels[(u, v, key)] = f"{sign}τ{lag}"
 
     # 绘制边滞后标签
     for (u, v, key), label in edge_labels.items():
@@ -393,8 +439,17 @@ def plot_causal_graph_with_positions(links_coeffs, node_positions, output_dir, t
             if edge_count > 1:
                 label_pos = (label_pos[0] + 0.5, label_pos[1] + 0.5)
 
+        # 根据权重符号设置标签颜色
+        weight = None
+        for uu, vv, kk, dd in G.edges(keys=True, data=True):
+            if (uu, vv, kk) == (u, v, key):
+                weight = dd['weight']
+                break
+
+        label_color = 'red' if weight is not None and weight >= 0 else 'blue'
+
         plt.text(label_pos[0], label_pos[1], label,
-                 fontsize=6, ha='center', va='center',
+                 fontsize=2, ha='center', va='center', color=label_color,
                  bbox=dict(boxstyle='round,pad=0.2', facecolor='white', alpha=0.8))
 
     # 添加颜色图例（权重）
@@ -403,45 +458,61 @@ def plot_causal_graph_with_positions(links_coeffs, node_positions, output_dir, t
     cbar = plt.colorbar(sm, ax=plt.gca(), shrink=0.8)
     cbar.set_label('Connection Weight', rotation=270, labelpad=20)
 
+    # 添加节点出边数量颜色图例
+    sm_nodes = plt.cm.ScalarMappable(cmap=plt.cm.autumn, norm=plt.Normalize(vmin=0, vmax=vmax if vmax > 0 else 1))
+    sm_nodes.set_array([])
+    cbar_nodes = plt.colorbar(sm_nodes, ax=plt.gca(), shrink=0.8, location='left')
+    cbar_nodes.set_label('Number of Outgoing Edges', rotation=270, labelpad=20)
+
+
     plt.title(title)
     plt.tight_layout()
 
     # 保存图像
     output_file = os.path.join(output_dir, 'causal_graph_with_positions.png')
-    plt.savefig(output_file, dpi=300, bbox_inches='tight')
-    print(f"带坐标信息的因果图已保存至: {output_file}")
+    plt.savefig(output_file, dpi=600, bbox_inches='tight')
+    print(f"\n带坐标信息的因果图已保存至: {output_file}")
     plt.close()
 
     # 打印连接统计信息
-    print("因果连接统计:")
+    print("\n因果连接统计:")
     lag_count = {}
-    weight_ranges = {"0.0-0.1": 0, "0.1-0.2": 0, "0.2-0.3": 0, "0.3-0.4": 0, "0.4-0.5": 0, "0.5+": 0}
+    positive_count = 0
+    negative_count = 0
+    weight_ranges = {"<-0.3": 0, "-0.3--0.1": 0, "-0.1-0.1": 0, "0.1-0.3": 0, ">0.3": 0}
 
     for u, v, key, data in G.edges(keys=True, data=True):
         lag = data['lag']
         lag_count[lag] = lag_count.get(lag, 0) + 1
 
-        # 统计权重分布
-        weight = abs(data['weight'])
-        if weight < 0.1:
-            weight_ranges["0.0-0.1"] += 1
-        elif weight < 0.2:
-            weight_ranges["0.1-0.2"] += 1
-        elif weight < 0.3:
-            weight_ranges["0.2-0.3"] += 1
-        elif weight < 0.4:
-            weight_ranges["0.3-0.4"] += 1
-        elif weight < 0.5:
-            weight_ranges["0.4-0.5"] += 1
+        # 统计正负权重
+        weight = data['weight']
+        if weight >= 0:
+            positive_count += 1
         else:
-            weight_ranges["0.5+"] += 1
+            negative_count += 1
+
+        # 统计权重分布
+        if weight < -0.3:
+            weight_ranges["<-0.3"] += 1
+        elif weight < -0.1:
+            weight_ranges["-0.3--0.1"] += 1
+        elif weight < 0.1:
+            weight_ranges["-0.1-0.1"] += 1
+        elif weight < 0.3:
+            weight_ranges["0.1-0.3"] += 1
+        else:
+            weight_ranges[">0.3"] += 1
+
+    print(f"  正效应连接: {positive_count} 条")
+    print(f"  负效应连接: {negative_count} 条")
 
     for lag in sorted(lag_count.keys()):
         print(f"  时间滞后 {lag}: {lag_count[lag]} 条连接")
 
-    print("\n权重分布:")
-    for range_key, count in weight_ranges.items():
-        print(f"  权重 {range_key}: {count} 条连接")
+    # print("\n权重分布:")
+    # for range_key, count in weight_ranges.items():
+    #     print(f"  权重 {range_key}: {count} 条连接")
 
     # 特别统计自相关连接
     self_connection_count = len(self_edges)
@@ -489,17 +560,7 @@ def plot_causal_heatmap(links_coeffs, N, output_dir):
     print(f"\n热图统计信息:")
     print(f"  总连接数: {total_connections}")
     print(f"  最大连接数(单对节点): {max_connections}")
-    print(f"  平均连接数(非零): {avg_connections:.2f}")
-    print(f"  非零连接对数: {non_zero_connections}")
     print(f"  矩阵大小: {N} x {N}")
-
-    # 显示一些具体数值示例
-    if non_zero_connections > 0:
-        nonzero_values = connection_count[connection_count > 0]
-        print(f"  连接数分布:")
-        print(f"    最小(非零): {np.min(nonzero_values)}")
-        print(f"    中位数: {np.median(nonzero_values):.1f}")
-        print(f"    最大: {np.max(nonzero_values)}")
 
     # 保存图像
     output_file = os.path.join(output_dir, 'causal_heatmap.png')
@@ -557,8 +618,8 @@ def print_node_statistics(links_coeffs, N):
     print(f"  自关联最多的节点: {max_self_node} ({self_connections[max_self_node]} 个)")
     print(f"  出边最多的节点: {max_out_node} ({out_connections[max_out_node]} 个)")
 
+print_node_statistics(links_coeffs, N)
 # 调用函数绘制带坐标信息的因果图
 plot_causal_graph_with_positions(links_coeffs, node_positions, output_dir=output_dir, show=True)
 # 在文件末尾调用热图绘制函数
 plot_causal_heatmap(links_coeffs, N, output_dir)
-print_node_statistics(links_coeffs, N)

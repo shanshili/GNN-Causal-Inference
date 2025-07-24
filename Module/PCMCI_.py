@@ -65,8 +65,8 @@ N = positions.shape[0]
 # # 设置距离阈值（根据你的数据调整）
 # distance_threshold =10.0  # 例如：只保留 _ km 以内的潜在因果关系
 
-tau_max = 12  # 可根据需要调整
-pc_alpha = 0.01  # 显著性阈值
+tau_max = 10  # 可根据需要调整
+pc_alpha = 0.1  # 显著性阈值
 
 # # 手动构造 link_assumptions（等效于 make_link_assumptions）
 # link_assumptions = {}
@@ -116,6 +116,13 @@ print(f"完整 PCMCI 结果已保存为 pickle 文件: {pickle_file}")
 
 with open(pickle_file, 'rb') as f:
     loaded_results = pickle.load(f)
+
+# 打印 loaded_results 的详细信息
+# print("\n=== loaded_results 详细信息 ===")
+# print(f"loaded_results 类型: {type(loaded_results)}")
+#
+# if isinstance(loaded_results, dict):
+#     print(f"loaded_results 键: {list(loaded_results.keys())}")
 
 graph = loaded_results['graph']
 
