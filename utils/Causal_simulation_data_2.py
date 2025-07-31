@@ -18,9 +18,9 @@ os.makedirs(output_dir, exist_ok=True)
 np.random.seed(123)
 
 # 参数设置
-N = 100  # 节点数量
-T = 1000  # 时间步长
-tau_max = 5  # 最大时间滞后
+N = 20  # 节点数量
+T = 10000  # 时间步长
+tau_max = 3  # 最大时间滞后
 transient_fraction = 0.1  # 瞬态比例
 
 """ 
@@ -35,6 +35,8 @@ positions_df = pd.DataFrame({
 
 """
 生成时间序列数据 (带空间相关性)
+links_coeffs：
+节点i: [((源节点, 滞后时间), 系数, 函数),
 """
 links_coeffs = {}
 # 用于记录每个节点的父节点，防止双向连接

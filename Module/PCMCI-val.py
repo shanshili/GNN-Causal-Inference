@@ -120,6 +120,53 @@ plt.suptitle("Lagged Correlation Functions", fontsize=16, y=0.98)
 """
 results = pcmci.run_pcmciplus(tau_max=tau_max, pc_alpha=0.01)
 print(results['val_matrix'].shape)
+
+graph = results['graph']
+val_matrix = results['val_matrix']
+
+edge_counts = {}
+for i in range(N):
+    for j in range(N):
+        # if i == j:  # 排除自关联
+        #     continue
+        count = 0
+        for tau in range(0, tau_max + 1):
+            if graph[i, j, tau] == '-->' or graph[i, j, tau] == 'o-o' :  # 节点 i 在时间 t-τ 时刻对节点 j 在时间 t 时刻有因果影响
+                print(graph[i, j, tau])
+                print(f"节点{i}与{j}因果效应{val_matrix[i, j, tau]}")
+                count += 1
+        if count > 0:
+            edge_counts[(i, j)] = count
+            print(f"节点{i}与{j}链接{count}条")
+"""
+-->
+节点0与0因果效应0.5578951835632324
+节点0与0链接1条
+-->
+节点0与1因果效应0.27064645290374756
+节点0与1链接1条
+-->
+节点0与2因果效应-0.3540237247943878
+节点0与2链接1条
+-->
+节点1与1因果效应0.6784783601760864
+节点1与1链接1条
+-->
+节点2与2因果效应0.4284769892692566
+节点2与2链接1条
+o-o
+节点3与4因果效应0.3270717263221741
+节点3与4链接1条
+o-o
+节点4与3因果效应0.3270717263221741
+节点4与3链接1条
+"""
+
+
+"""
+直线链接表示同期依赖关系， o-o
+曲线箭头表示滞后依赖关系。
+"""
 tp.plot_graph(results['graph'],
               val_matrix=results['val_matrix'],
               var_names=var_names,
