@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0e056ed8-12f7-42a2-a557-df1eeaaceeb7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module/PCMCI_TJ.py" beforeDir="false" afterPath="$PROJECT_DIR$/Module/PCMCI_TJ.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/TJ_dataprocess_3d_25071816.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/TJ_dataprocess_3d_25071816.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/PCMCI_Intel.py" beforeDir="false" afterPath="$PROJECT_DIR$/Module/PCMCI_Intel.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -10,6 +10,7 @@ import numpy as np
 import pandas as pd
 from tigramite import data_processing as pp
 from tigramite.independence_tests.parcorr import ParCorr
+from tigramite.independence_tests.gpdc_torch import GPDCtorch
 from tigramite.pcmci import PCMCI
 import matplotlib.pyplot as plt
 from utils.euclidean_distance import  compute_euclidean_matrix
@@ -17,7 +18,15 @@ import networkx as nx
 from matplotlib.colors import Normalize
 import matplotlib.cm as cm
 import pickle
+import torch
 
+
+# 检查CUDA可用性
+print(f"CUDA 可用: {torch.cuda.is_available()}")
+if torch.cuda.is_available():
+    print(f"GPU 数量: {torch.cuda.device_count()}")
+    print(f"当前 GPU: {torch.cuda.current_device()}")
+    print(f"GPU 名称: {torch.cuda.get_device_name(0)}")
 """
 数据读取
 """
@@ -26,7 +35,7 @@ dataset_dir = os.path.join(current_dir, '..', 'dataset/Intel Lab Data/timestamps
 # 确保目标路径存在
 os.makedirs(dataset_dir, exist_ok=True)
 # 构建 PCMCI 结果保存文件夹路径
-output_dir = os.path.join(current_dir, 'PCMCI_Intel')
+output_dir = os.path.join(current_dir, 'PCMCI_Intel_GPDCtorch')
 # 如果文件夹不存在，则创建
 os.makedirs(output_dir, exist_ok=True)
 
@@ -72,7 +81,26 @@ dataframe = pp.DataFrame(data,
 初始化 PCMCI 对象
 """
 # 初始化条件独立性检验
-cond_ind_test = ParCorr(significance='analytic')
+# cond_ind_test = ParCorr(significance='analytic')
+cond_ind_test = GPDCtorch(significance='analytic')
+
+# # 配置 GPDCtorch 使用 CUDA（如果可用）
+# gp_params = {
+#     'device': 'cuda' if torch.cuda.is_available() else 'cpu',
+#     'dtype': 'float32',
+#     'max_iter': 30,  # 可以调整优化迭代次数
+#     'optimizer': 'adam'  # 优化器选择
+# }
+#
+# cond_ind_test = GPDCtorch(
+#     significance='analytic',
+#     device='cuda',
+#     precision='float32',
+#     max_iter=30
+# )
+#
+# print(f"GPDCtorch 配置: 使用 {gp_params['device']} 设备")
+
 # 初始化 PCMCI 对象
 pcmci = PCMCI(dataframe=dataframe, cond_ind_test=cond_ind_test, verbosity=1)
 
@@ -85,8 +113,8 @@ N = positions.shape[0]
 # # 设置距离阈值（根据你的数据调整）
 # distance_threshold =10.0  # 例如：只保留 _ km 以内的潜在因果关系
 
-tau_max = 100  # 可根据需要调整
-pc_alpha = 0.1  # 显著性阈值
+tau_max = 55  # 可根据需要调整
+pc_alpha = 0.01  # 显著性阈值
 
 # # 手动构造 link_assumptions（等效于 make_link_assumptions）
 # link_assumptions = {}
