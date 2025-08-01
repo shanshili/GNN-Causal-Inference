@@ -19,7 +19,7 @@ from sklearn.preprocessing import MinMaxScaler
 # 获取当前脚本的目录
 current_dir = os.path.dirname(os.path.abspath(__file__))
 # 构建 dataset 文件夹的路径
-dataset_dir = os.path.join(current_dir, '..', 'dataset')
+dataset_dir = os.path.join(current_dir, '..', 'dataset/TJ')
 # 确保目标路径存在
 os.makedirs(dataset_dir, exist_ok=True)
 
@@ -62,8 +62,9 @@ print(f"三维张量 shape: {tensor_data.shape}")
 """
 数据抽样
 """
-k = 5  # 每隔 K 个时间步采样一次
-sampled_tensor = tensor_data[:, ::k, :]  # shape = (num_nodes, sampled_time_steps, num_features)
+k = 0  # 每隔 K 个时间步采样一次
+# sampled_tensor = tensor_data[:, ::k, :]  # shape = (num_nodes, sampled_time_steps, num_features)
+sampled_tensor = tensor_data
 print("采样前张量尺寸:", tensor_data.shape)  # 添加打印
 print("采样后张量尺寸:", sampled_tensor.shape)  # 添加打印
 
