@@ -7,7 +7,26 @@
     <list default="true" id="0e056ed8-12f7-42a2-a557-df1eeaaceeb7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Module/PCMCI_Intel.py" beforeDir="false" afterPath="$PROJECT_DIR$/Module/PCMCI_Intel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Module/PCMCI_Intel/network_causal_graph_tau3_alpha0p010.png" beforeDir="false" afterPath="$PROJECT_DIR$/Module/PCMCI_Intel/network_causal_graph_tau3_alpha0p010.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/PCMCI_TJ.py" beforeDir="false" afterPath="$PROJECT_DIR$/Module/PCMCI_TJ.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/PCMCI_TJ/causal_graph_pcmci_plus.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/PCMCI_TJ/causal_matrix.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/PCMCI_TJ/causal_matrix_tau11_alpha0p001_dist5d0km.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/PCMCI_TJ/causal_matrix_tau13_alpha0p001_dist10d0km.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/PCMCI_TJ/causal_matrix_tau13_alpha0p001_dist8d0km.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/PCMCI_TJ/causal_matrix_tau16_alpha0p001_dist40d0km.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/PCMCI_TJ/causal_matrix_tau16_alpha0p001_dist8d0km.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/PCMCI_TJ/causal_matrix_tau24_alpha0p001_dist30d0km.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/PCMCI_TJ/causal_matrix_tau24_alpha0p001_dist40d0km.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/PCMCI_TJ/causal_matrix_tau32_alpha0p001_dist8d0km.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/PCMCI_TJ/network_causal_graph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/PCMCI_TJ/network_causal_graph_tau11_alpha0p001_dist5d0km.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/PCMCI_TJ/network_causal_graph_tau13_alpha0p001_dist10d0km.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/PCMCI_TJ/network_causal_graph_tau13_alpha0p001_dist8d0km.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/PCMCI_TJ/network_causal_graph_tau16_alpha0p001_dist40d0km.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/PCMCI_TJ/network_causal_graph_tau16_alpha0p001_dist8d0km.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/PCMCI_TJ/network_causal_graph_tau24_alpha0p001_dist30d0km.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/PCMCI_TJ/network_causal_graph_tau24_alpha0p001_dist40d0km.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Module/PCMCI_TJ/network_causal_graph_tau32_alpha0p001_dist8d0km.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
