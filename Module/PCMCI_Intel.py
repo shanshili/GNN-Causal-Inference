@@ -85,8 +85,8 @@ N = positions.shape[0]
 # # 设置距离阈值（根据你的数据调整）
 # distance_threshold =10.0  # 例如：只保留 _ km 以内的潜在因果关系
 
-tau_max = 55  # 可根据需要调整
-pc_alpha = 0.01  # 显著性阈值
+tau_max = 100  # 可根据需要调整
+pc_alpha = 0.001  # 显著性阈值
 
 # # 手动构造 link_assumptions（等效于 make_link_assumptions）
 # link_assumptions = {}
