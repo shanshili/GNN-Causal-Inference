@@ -6,4 +6,5 @@ reference/**
 *.memmap
 *.npz
 *.pth
+*.pkl
 
