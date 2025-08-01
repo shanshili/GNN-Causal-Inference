@@ -346,9 +346,9 @@ pos = nx.get_node_attributes(G, 'pos')
 
 # 计算每个节点的出边数量（出边表示该节点影响其他节点的数量）
 out_degree = np.zeros(N)
-vmax = np.max(out_degree) if np.max(out_degree) > 0 else 1
 for u, v, key, data in G.edges(keys=True, data=True):
     out_degree[u] += 1  # 节点u有一条出边
+vmax = np.max(out_degree) if np.max(out_degree) > 0 else 1
 
 # 设置绘图参数
 plt.figure(figsize=(12, 10))
