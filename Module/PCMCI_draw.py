@@ -122,10 +122,10 @@ for u, v, key, data in G.edges(keys=True, data=True):
 vmax = np.max(out_degree) if np.max(out_degree) > 0 else 1
 
 # 设置绘图参数
-plt.figure(figsize=(12, 10))
-nx.draw_networkx_nodes(G, pos, node_size=50, node_color=out_degree,
-                       cmap=plt.cm.autumn, alpha=0.8)
-nx.draw_networkx_labels(G, pos, font_size=8)
+plt.figure(figsize=(14, 12))
+nx.draw_networkx_nodes(G, pos, node_size=60, node_color=out_degree,
+                       cmap=plt.cm.YlGn, alpha=0.8)
+nx.draw_networkx_labels(G, pos, font_size=6)
 
 
 # 分别处理自相关边（自循环）和普通边
@@ -180,14 +180,21 @@ for u, v, key, data in self_edges:
     color = cmap(norm(causal_effect))
 
     # 根据权重绝对值设置边宽度
-    width = 1 + abs(causal_effect) * 8
+    width = 1 + abs(causal_effect) * 5
 
     # 绘制自循环边
-    nx.draw_networkx_edges(G, pos, edgelist=[(u, v, key)],
-                           width=width,
-                           edge_color=[color],
-                           alpha=0.7, arrows=True, arrowsize=20,
-                           connectionstyle=f'arc3,rad=0.3')  # 弯曲的自循环
+    # nx.draw_networkx_edges(G, pos, edgelist=[(u, v, key)],
+    #                        width=width,
+    #                        edge_color=[color],
+    #                        alpha=0.7, arrows=True, arrowsize=20,
+    #                        connectionstyle=f'arc3,rad=0.9')  # 弯曲的自循环
+    #
+    # 获取节点位置
+    x, y = pos[u]
+    # 手动绘制一个小箭头表示自循环
+    # 在节点上方绘制一个短箭头
+    plt.annotate('', xy=(x, y+0.005), xytext=(x-0.005, y),
+                 arrowprops=dict(arrowstyle='simple', color=color, lw=width, alpha=0.7,mutation_scale=width*3+10))
 
 # 添加边标签（包含时间滞后和效应符号）
 edge_labels = {}
@@ -203,7 +210,7 @@ for (u, v, key), label in edge_labels.items():
     if u == v:  # 自循环
         # 自循环标签位置
         x, y = pos[u]
-        label_pos = (x + 1.5, y + 1.5)
+        label_pos = (x + 0.01, y + 0.01)
     else:  # 普通边
         # 普通边中点位置
         x1, y1 = pos[u]
@@ -213,7 +220,7 @@ for (u, v, key), label in edge_labels.items():
         # 如果有多条边连接同一对节点，稍微偏移标签位置
         edge_count = len([k for uu, vv, k, d in G.edges(keys=True, data=True) if (uu, vv) == (u, v)])
         if edge_count > 1:
-            label_pos = (label_pos[0] + 0.5, label_pos[1] + 0.5)
+            label_pos = (label_pos[0] + 0.005, label_pos[1] + 0.005)
 
     # 根据因果效应符号设置标签颜色
     causal_effect = None
@@ -235,7 +242,7 @@ cbar = plt.colorbar(sm, ax=plt.gca(), shrink=0.8)
 cbar.set_label('Causal Effect', rotation=270, labelpad=20)
 
 # 添加节点出边数量颜色图例
-sm_nodes = plt.cm.ScalarMappable(cmap=plt.cm.autumn, norm=plt.Normalize(vmin=0, vmax=vmax if vmax > 0 else 1))
+sm_nodes = plt.cm.ScalarMappable(cmap=plt.cm.YlGn, norm=plt.Normalize(vmin=0, vmax=vmax if vmax > 0 else 1))
 sm_nodes.set_array([])
 cbar_nodes = plt.colorbar(sm_nodes, ax=plt.gca(), shrink=0.8, location='left')
 cbar_nodes.set_label('Number of Outgoing Edges', rotation=270, labelpad=20)
