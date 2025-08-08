@@ -26,7 +26,7 @@ dataset_dir = os.path.join(current_dir, '..', 'dataset/TJ')
 # 确保目标路径存在
 os.makedirs(dataset_dir, exist_ok=True)
 # 构建 PCMCI 结果保存文件夹路径
-output_dir = os.path.join(current_dir, 'PCMCI_TJ_K0')
+output_dir = os.path.join(current_dir, 'PCMCI_TJ_K0_RHU')
 # 如果文件夹不存在，则创建
 os.makedirs(output_dir, exist_ok=True)
 
@@ -34,7 +34,7 @@ os.makedirs(output_dir, exist_ok=True)
 position_file = os.path.join(dataset_dir, 'TJ_position.csv')
 positions_df = pd.read_csv(position_file)
 
-data_path = os.path.join(dataset_dir, 'dataprocess/k0/sampled_tensor_data_tem.npy')
+data_path = os.path.join(dataset_dir, 'dataprocess/k0_RHU/sampled_tensor_data_k0_RHU.npy')
 data = np.load(data_path)  # shape: (301, 1753, 1)
 
 # 去除最后一个维度，使其成为 (301, 1753)
@@ -64,7 +64,7 @@ N = positions.shape[0]
 # # 设置距离阈值（根据你的数据调整）
 # distance_threshold =40.0  # 例如：只保留 _ km 以内的潜在因果关系
 
-tau_max = 30  # 可根据需要调整
+tau_max = 6  # 可根据需要调整
 pc_alpha = 0.01  # 显著性阈值
 
 # # 手动构造 link_assumptions（等效于 make_link_assumptions）

@@ -31,7 +31,9 @@ positions_df = pd.read_csv(position_file)
 tj_dir = os.path.join(dataset_dir, 'TJ')
 
 # 选择要使用的测量变量
-measurement_columns = ['TEM']
+measurement_columns = ['WIN'] #TEM	PRS	WIN	RHU
+# 提取测量变量名称用于文件夹和文件命名
+measurement_name = measurement_columns[0]  # 提取实际的测量变量名称
 # 创建一个字典来存储每个节点的时序数据
 node_timeseries = {}
 file_list = [f for f in os.listdir(tj_dir) if f.startswith('TJ_') and f.endswith('.csv')]
@@ -62,16 +64,23 @@ print(f"三维张量 shape: {tensor_data.shape}")
 """
 数据抽样
 """
-k = 0  # 每隔 K 个时间步采样一次
+k = 5  # 每隔 K 个时间步采样一次
 # sampled_tensor = tensor_data[:, ::k, :]  # shape = (num_nodes, sampled_time_steps, num_features)
 sampled_tensor = tensor_data
 print("采样前张量尺寸:", tensor_data.shape)  # 添加打印
 print("采样后张量尺寸:", sampled_tensor.shape)  # 添加打印
 
 # 构建输出文件路径
-output_path = os.path.join(dataset_dir, 'sampled_tensor_data_tem.npy')
+output_folder = f'k{k}_{measurement_name}'
+output_dir = os.path.join(dataset_dir, output_folder)
+os.makedirs(output_dir, exist_ok=True)
+
+# 构建输出文件路径，文件名也包含k值和测量变量信息
+output_filename = f'sampled_tensor_data_k{k}_{measurement_name}.npy'
+output_path = os.path.join(output_dir, output_filename)
 np.save(output_path, sampled_tensor)
 print(f"数据已保存至：{output_path}")
+
 
 
 """
@@ -87,14 +96,16 @@ for i, node_id in enumerate(node_ids):
     standardized_tensor[i, :, :] = scaler.fit_transform(sampled_tensor[i, :, :])
     scalers[node_id] = scaler  # 保存标准化器（用于后续反标准化）
 
-# 构建输出文件路径
-output_path = os.path.join(dataset_dir, 'sampled_and_standardized_tensor_data_tem.npy')
+# 构建标准化数据的输出文件路径
+standardized_filename = f'sampled_and_standardized_tensor_data_k{k}_{measurement_name}.npy'
+output_path = os.path.join(output_dir, standardized_filename)
 np.save(output_path, standardized_tensor)
 print(f"数据已保存至：{output_path}")
 print("标准化后张量尺寸:", standardized_tensor.shape)
 
 # 保存标准化器
-joblib.dump(scalers, os.path.join(dataset_dir, 'scalers_tem.pkl'))
+scaler_filename = f'scalers_k{k}_{measurement_name}.pkl'
+joblib.dump(scalers, os.path.join(output_dir, scaler_filename))
 
 """
 三维张量 shape: (301, 8761, 1)
