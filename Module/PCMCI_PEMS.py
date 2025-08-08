@@ -19,30 +19,40 @@ import matplotlib.cm as cm
 import pickle
 
 """
-数据读取
+数据读取 (PEMSD7)
 """
 # 构建 dataset 文件夹的路径
-dataset_dir = os.path.join(current_dir, '..', 'dataset/TJ')
+dataset_dir = os.path.join(current_dir, '..', 'dataset/pemsd7')
 # 确保目标路径存在
 os.makedirs(dataset_dir, exist_ok=True)
 # 构建 PCMCI 结果保存文件夹路径
-output_dir = os.path.join(current_dir, 'PCMCI_TJ_K0_RHU')
+output_dir = os.path.join(current_dir, 'PCMCI_PEMS_hour_100_FLOW')
 # 如果文件夹不存在，则创建
 os.makedirs(output_dir, exist_ok=True)
 
-# 加载数据
-position_file = os.path.join(dataset_dir, 'TJ_position.csv')
-positions_df = pd.read_csv(position_file)
+# 加载传感器位置数据
+location_file = os.path.join(dataset_dir, 'location2_sampled100.csv')
+locations_df = pd.read_csv(location_file)
 
-data_path = os.path.join(dataset_dir, 'dataprocess/k0_RHU/sampled_tensor_data_k0_RHU.npy')
-data = np.load(data_path)  # shape: (301, 1753, 1)
+# 加载传感器流量数据
+data_file = os.path.join(dataset_dir, 'hour_sampled100_sensor_data.csv')
+sensor_data_df = pd.read_csv(data_file)
 
-# 去除最后一个维度，使其成为 (301, 1753)
-data = data.squeeze(-1)  # shape: (301, 1753)
-data = data.T  # shape becomes (1753, 301)
+# 提取 Total Flow 值并按 Station 分组
+flow_data = sensor_data_df.pivot(index='Timestamp', columns='Station', values='Total Flow')
+# 处理 NaN 值，用 0 填充
+flow_data = flow_data.fillna(0.0)
+# 转换为 numpy 数组
+data_raw = flow_data.values  # shape: (时间步数, 传感器数量)
 
-# 定义变量名（可选）
-var_names = [f'Node_{i}' for i in range(data.shape[1])]  # 301个节点名
+# 转置数据使其成为 (传感器数量, 时间步数)
+data_transposed = data_raw.T  # shape: (传感器数量, 时间步数)
+
+# 如果需要进一步处理成 (时间步数, 传感器数量) 格式用于 PCMCI
+data = data_raw  # shape: (时间步数, 传感器数量)
+
+# 定义变量名（传感器名）
+var_names = [f'Sensor_{col}' for col in flow_data.columns]  # N个传感器名
 
 # 创建 DataFrame
 dataframe = pp.DataFrame(data, var_names=var_names)
@@ -55,93 +65,30 @@ cond_ind_test = ParCorr(significance='analytic')
 # 初始化 PCMCI 对象
 pcmci = PCMCI(dataframe=dataframe, cond_ind_test=cond_ind_test, verbosity=1)
 
-
-# 获取节点坐标（假设列名为 'lat', 'lon'）
-positions = positions_df[['lat', 'lon']].values  # shape: (N, 2)
+# 获取传感器坐标（假设列名为 'latitude', 'longitude'）
+positions = locations_df[['Latitude', 'Longitude']].values  # shape: (N, 2)
 N = positions.shape[0]
-# # 计算 Haversine 距离矩阵
-# distance_matrix = compute_haversine_matrix(positions)  # 单位：千米
-# # 设置距离阈值（根据你的数据调整）
-# distance_threshold =40.0  # 例如：只保留 _ km 以内的潜在因果关系
 
-tau_max = 6  # 可根据需要调整
+tau_max = 30  # 可根据需要调整
 pc_alpha = 0.01  # 显著性阈值
-
-# # 手动构造 link_assumptions（等效于 make_link_assumptions）
-# link_assumptions = {}
-#
-# # 初始化统计变量
-# k_counts = {}  # 每个节点 i 的有链接边数（考虑时间）
-# d_counts = {}  # 每个节点 i 的有链接的源点数（不考虑时间）
-#
-# for i in range(N):  # i 是目标变量（被影响变量）
-#     k = 0
-#     d_set = set()  # 用于记录不重复的源节点 j
-#     link_assumptions[i] = {}
-#     for j in range(N):  # j 是源变量（影响变量）
-#         for tau in range(1, tau_max + 1):
-#             if distance_matrix[i, j] > distance_threshold:
-#                 # 不搜索该连接 → 不添加该键值对即可
-#                 continue
-#             else:
-#                 # 允许连接，并假设方向为 'o-o'
-#                 link_assumptions[i][(j, -tau)] = 'o-o'
-#                 k += 1
-#                 d_set.add(j)  # 将源节点 j 加入集合（自动去重）
-#     # 保存统计结果
-#     k_counts[i] = k
-#     d_counts[i] = len(d_set)
-#     print(f"Node {i}: 共有 {k_counts[i]} 条链接（含时间），来自 {d_counts[i]} 个不同节点")
-
 
 results = pcmci.run_pcmciplus(
     tau_max=tau_max,
     pc_alpha=pc_alpha,
-    # link_assumptions=link_assumptions,
 )
 
 # 参数格式化，用于文件名
 tau_str = f'tau{tau_max}'
 alpha_str = f'alpha{pc_alpha:.3f}'.replace('.', 'p')  # 0.001 → alpha0p001
-# dist_str = f'dist{distance_threshold:.1f}km'.replace('.', 'd')  # 5.0 → dist5d0km
-# # 保存 PCMCI 的结果到 .npz 文件
-# filename3 = f'pcmci_results_{tau_str}_{alpha_str}_{dist_str}.npz'
 filename3 = f'pcmci_results_{tau_str}_{alpha_str}.pkl'
 pickle_file = os.path.join(output_dir, filename3)
-# np.savez(result_file, **results)
-# print(f"PCMCI results saved to {result_file}")
+
 with open(pickle_file, 'wb') as f:
     pickle.dump(results, f)
 print(f"完整 PCMCI 结果已保存为 pickle 文件: {pickle_file}")
 
 with open(pickle_file, 'rb') as f:
     loaded_results = pickle.load(f)
-
-# 绘制图结构
-# graph_fig_file = os.path.join(output_dir, 'causal_graph_pcmci_plus.png')
-#
-# tp.plot_graph(
-#     results['graph'],
-#     val_matrix=results['val_matrix'],
-#     var_names=var_names,
-#     link_colorbar_label='MCI',
-#     node_colorbar_label='auto-MCI',
-#     link_label_fontsize=5,
-#     label_fontsize=6,
-#     tick_label_size=6,
-#     node_label_size=6,
-#     edge_ticks=0.1,
-#     node_ticks=0.1,
-#     node_size=0.1
-# )
-# plt.title("Estimated Causal Graph using PCMCI+", fontsize=12)
-# plt.tight_layout()
-# plt.savefig(graph_fig_file, dpi=600, bbox_inches='tight')
-# plt.close()
-
-# print(f"Causal graph saved to {graph_fig_file}")
-
-
 
 graph = results['graph']
 val_matrix = loaded_results['val_matrix']
@@ -158,8 +105,6 @@ edge_counts = {}
 for i in range(N):
     print(f"节点{i}")
     for j in range(N):
-        # if i == j:  # 排除自关联
-        #     continue
         count = 0
         for tau in range(1, tau_max + 1):
             if graph[i, j, tau] == '-->':  # 节点 i 在时间 t-τ 时刻对节点 j 在时间 t 时刻有因果影响
@@ -188,8 +133,6 @@ for i in range(N):
 edge_count = 0
 for i in range(N):  # 源节点
     for j in range(N):  # 目标节点
-        # if i == j:  # 排除自关联
-        #     continue
         for tau in range(1, tau_max + 1):  # 时间滞后 (通常从1开始)
             # 检查是否存在显著的因果关系
             if graph[i, j, tau] == '-->':
@@ -221,7 +164,6 @@ plt.figure(figsize=(12, 10))
 nx.draw_networkx_nodes(G, pos, node_size=50, node_color=out_degree,
                        cmap=plt.cm.autumn, alpha=0.8)
 nx.draw_networkx_labels(G, pos, font_size=8)
-
 
 # 分别处理自相关边（自循环）和普通边
 self_edges = []  # 自相关边
@@ -358,9 +300,6 @@ causal_matrix = np.zeros((N, N))
 # 填充矩阵（i → j 的因果联系数量）
 for (i, j), count in edge_counts.items():
     causal_matrix[i, j] = count  # 注意：G.add_edge(j, i) 表示 j → i
-# # 添加自关联（i → i）
-# for i in range(N):
-#     causal_matrix[i, i] = node_self_counts[i]  # node_self_counts[i] 是 i → i 的因果联系数量
 
 # 创建绘图对象
 fig_matrix, ax_matrix = plt.subplots(figsize=(10, 8), dpi=1800)
@@ -384,8 +323,6 @@ ax_matrix.tick_params(axis='both', which='major', labelsize=5)
 
 plt.tight_layout()
 
-# filename2 = f'causal_matrix_{tau_str}_{alpha_str}_{dist_str}.png'
 filename2 = f'causal_matrix_{tau_str}_{alpha_str}.png'
 plt.savefig(os.path.join(output_dir, filename2), dpi=1800, bbox_inches='tight')
 print(f"因果矩阵热力图已保存至：{os.path.join(output_dir, filename2)}")
-
