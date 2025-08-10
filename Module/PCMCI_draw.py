@@ -20,15 +20,15 @@ import matplotlib.cm as cm
 import pickle
 import torch
 
-tau_max = 6  # 可根据需要调整
-pc_alpha = 0.01  # 显著性阈值
+tau_max = 3  # 可根据需要调整
+pc_alpha = 0.1  # 显著性阈值
 
 # 构建 dataset 文件夹的路径
 dataset_dir = os.path.join(current_dir, '..', 'dataset/TJ')
 # 确保目标路径存在
 os.makedirs(dataset_dir, exist_ok=True)
 # 构建 PCMCI 结果保存文件夹路径
-output_dir = os.path.join(current_dir, 'PCMCI_TJ_K0')
+output_dir = os.path.join(current_dir, 'PCMCI_TJ_K5_TEM')
 # 如果文件夹不存在，则创建
 os.makedirs(output_dir, exist_ok=True)
 
