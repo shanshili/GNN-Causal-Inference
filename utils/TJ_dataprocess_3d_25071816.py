@@ -31,7 +31,7 @@ positions_df = pd.read_csv(position_file)
 tj_dir = os.path.join(dataset_dir, 'TJ')
 
 # 选择要使用的测量变量
-measurement_columns = ['WIN'] #TEM	PRS	WIN	RHU
+measurement_columns = ['RHU'] #TEM	PRS	WIN	RHU
 # 提取测量变量名称用于文件夹和文件命名
 measurement_name = measurement_columns[0]  # 提取实际的测量变量名称
 # 创建一个字典来存储每个节点的时序数据
@@ -65,13 +65,13 @@ print(f"三维张量 shape: {tensor_data.shape}")
 数据抽样
 """
 k = 5  # 每隔 K 个时间步采样一次
-# sampled_tensor = tensor_data[:, ::k, :]  # shape = (num_nodes, sampled_time_steps, num_features)
-sampled_tensor = tensor_data
+sampled_tensor = tensor_data[:, ::k, :]  # shape = (num_nodes, sampled_time_steps, num_features)
+# sampled_tensor = tensor_data
 print("采样前张量尺寸:", tensor_data.shape)  # 添加打印
 print("采样后张量尺寸:", sampled_tensor.shape)  # 添加打印
 
 # 构建输出文件路径
-output_folder = f'k{k}_{measurement_name}'
+output_folder = f'dataprocess/k{k}_{measurement_name}'
 output_dir = os.path.join(dataset_dir, output_folder)
 os.makedirs(output_dir, exist_ok=True)
 
