@@ -69,7 +69,7 @@ pcmci = PCMCI(dataframe=dataframe, cond_ind_test=cond_ind_test, verbosity=1)
 positions = locations_df[['Latitude', 'Longitude']].values  # shape: (N, 2)
 N = positions.shape[0]
 
-tau_max = 30  # 可根据需要调整
+tau_max = 6  # 可根据需要调整
 pc_alpha = 0.01  # 显著性阈值
 
 results = pcmci.run_pcmciplus(
