@@ -10,7 +10,6 @@ import numpy as np
 import pandas as pd
 from tigramite import data_processing as pp
 from tigramite.independence_tests.parcorr import ParCorr
-from tigramite.independence_tests.gpdc_torch import GPDCtorch
 from tigramite.pcmci import PCMCI
 import matplotlib.pyplot as plt
 from utils.euclidean_distance import  compute_euclidean_matrix
@@ -21,27 +20,27 @@ import pickle
 import torch
 
 tau_max = 3  # 可根据需要调整
-pc_alpha = 0.1  # 显著性阈值
+pc_alpha = 0.0001  # 显著性阈值
 
 # 构建 dataset 文件夹的路径
-dataset_dir = os.path.join(current_dir, '..', 'dataset/TJ')
+dataset_dir = os.path.join(current_dir, '..', 'dataset/Causal_simulation_data_2/N100_T10000_t3')
 # 确保目标路径存在
 os.makedirs(dataset_dir, exist_ok=True)
 # 构建 PCMCI 结果保存文件夹路径
-output_dir = os.path.join(current_dir, 'PCMCI_TJ_K5_TEM')
+output_dir = os.path.join(current_dir, 'PCMCI_/N100_T10000_t3')
 # 如果文件夹不存在，则创建
 os.makedirs(output_dir, exist_ok=True)
 
 # 参数格式化，用于文件名
 tau_str = f'tau{tau_max}'
-alpha_str = f'alpha{pc_alpha:.3f}'.replace('.', 'p')  # 0.001 → alpha0p001
+alpha_str = f'alpha{pc_alpha:.4f}'.replace('.', 'p')  # 0.001 → alpha0p001
 filename3 = f'pcmci_results_{tau_str}_{alpha_str}.pkl'
 pickle_file = os.path.join(output_dir, filename3)
 
 # 加载数据
-position_file = os.path.join(dataset_dir, 'TJ_position.csv')
+position_file = os.path.join(dataset_dir, 'node_positions.csv')
 positions_df = pd.read_csv(position_file)
-positions = positions_df[['lat', 'lon']].values  # shape: (N, 2)
+positions = positions_df[['x', 'y']].values  # shape: (N, 2)
 N = positions.shape[0]
 
 with open(pickle_file, 'rb') as f:
@@ -205,12 +204,13 @@ for u, v, key, data in G.edges(keys=True, data=True):
     edge_labels[(u, v, key)] = f"{sign}τ{lag}"
 
 # 绘制边滞后标签
+"""
 for (u, v, key), label in edge_labels.items():
     # 计算边的中点位置
     if u == v:  # 自循环
         # 自循环标签位置
         x, y = pos[u]
-        label_pos = (x + 0.01, y + 0.01)
+        label_pos = (x + 1.5, y + 1.5) #(x + 0.01, y + 0.01)
     else:  # 普通边
         # 普通边中点位置
         x1, y1 = pos[u]
@@ -220,7 +220,8 @@ for (u, v, key), label in edge_labels.items():
         # 如果有多条边连接同一对节点，稍微偏移标签位置
         edge_count = len([k for uu, vv, k, d in G.edges(keys=True, data=True) if (uu, vv) == (u, v)])
         if edge_count > 1:
-            label_pos = (label_pos[0] + 0.005, label_pos[1] + 0.005)
+            label_pos = (label_pos[0] + 0.5, label_pos[1] + 0.5)
+            #label_pos = (label_pos[0] + 0.005, label_pos[1] + 0.005)
 
     # 根据因果效应符号设置标签颜色
     causal_effect = None
@@ -234,7 +235,7 @@ for (u, v, key), label in edge_labels.items():
     plt.text(label_pos[0], label_pos[1], label,
              fontsize=4, ha='center', va='center', color=label_color,
              bbox=dict(boxstyle='round,pad=0.2', facecolor='white', alpha=0.8))
-
+"""
 # 添加颜色图例（因果效应）
 sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
 sm.set_array([])
@@ -255,13 +256,14 @@ plt.grid(True, linestyle='--', alpha=0.3)
 plt.tight_layout()
 
 # 保存图像
-filename1 = f'network_causal_graph_{tau_str}_{alpha_str}.png'
+filename1 = f'network_causal_graph_{tau_str}_{alpha_str}_green_noT.png'
 plt.savefig(os.path.join(output_dir, filename1), dpi=600, bbox_inches='tight')
 print(f"因果图已保存至：{os.path.join(output_dir, filename1)}")
 plt.close()
 
 """
 因果矩阵热力图
+"""
 """
 # 创建 N×N 矩阵
 N = positions.shape[0]
@@ -297,6 +299,7 @@ ax_matrix.tick_params(axis='both', which='major', labelsize=5)
 plt.tight_layout()
 
 # filename2 = f'causal_matrix_{tau_str}_{alpha_str}_{dist_str}.png'
-filename2 = f'causal_matrix_{tau_str}_{alpha_str}.png'
+filename2 = f'causal_matrix_{tau_str}_{alpha_str}_new.png'
 plt.savefig(os.path.join(output_dir, filename2), dpi=1800, bbox_inches='tight')
 print(f"因果矩阵热力图已保存至：{os.path.join(output_dir, filename2)}")
+"""

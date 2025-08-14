@@ -23,7 +23,7 @@ import pickle
 数据读取
 """
 # 构建 dataset 文件夹的路径
-dataset_dir = os.path.join(current_dir, '..', 'dataset/Causal_simulation_data_2/N20_T10000_t3')
+dataset_dir = os.path.join(current_dir, '..', 'dataset/Causal_simulation_data_2/N100_T10000_t3')
 # 确保目标路径存在
 os.makedirs(dataset_dir, exist_ok=True)
 # 构建 PCMCI 结果保存文件夹路径
@@ -66,7 +66,7 @@ N = positions.shape[0]
 # distance_threshold =10.0  # 例如：只保留 _ km 以内的潜在因果关系
 
 tau_max = 3  # 可根据需要调整
-pc_alpha = 0.001  # 显著性阈值
+pc_alpha = 0.0001  # 显著性阈值
 
 # # 手动构造 link_assumptions（等效于 make_link_assumptions）
 # link_assumptions = {}
@@ -103,7 +103,7 @@ results = pcmci.run_pcmciplus(
 
 # 参数格式化，用于文件名
 tau_str = f'tau{tau_max}'
-alpha_str = f'alpha{pc_alpha:.3f}'.replace('.', 'p')  # 0.001 → alpha0p001
+alpha_str = f'alpha{pc_alpha:.4f}'.replace('.', 'p')  # 0.001 → alpha0p001
 # dist_str = f'dist{distance_threshold:.1f}km'.replace('.', 'd')  # 5.0 → dist5d0km
 # 保存 PCMCI 的结果到 .npz 文件
 # filename3 = f'pcmci_results_{tau_str}_{alpha_str}_{dist_str}.npz'

@@ -1,0 +1,6 @@
+delta: 15.0
+k_neighbors: 5
+n_bins: 3
+moran_i: -0.127209
+num_nodes: 100
+time_steps: 10000

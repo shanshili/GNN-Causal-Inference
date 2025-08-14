@@ -1,0 +1,1394 @@
+
+##
+## Step 1: PC1 algorithm for selecting lagged conditions
+##
+
+Parameters:
+independence test = par_corr
+tau_min = 1
+tau_max = 6
+pc_alpha = [0.01]
+max_conds_dim = None
+max_combinations = 1
+
+
+
+## Resulting lagged parent (super)sets:
+
+    Variable Sensor_715994 has 0 link(s):
+
+    Variable Sensor_716002 has 0 link(s):
+
+    Variable Sensor_716095 has 13 link(s):
+        (Sensor_716095 -1): max_pval = 0.00000, |min_val| =  0.493
+        (Sensor_775365 -1): max_pval = 0.00000, |min_val| =  0.115
+        (Sensor_771706 -1): max_pval = 0.00000, |min_val| =  0.104
+        (Sensor_718103 -4): max_pval = 0.00000, |min_val| =  0.094
+        (Sensor_717548 -1): max_pval = 0.00000, |min_val| =  0.068
+        (Sensor_718103 -2): max_pval = 0.00001, |min_val| =  0.062
+        (Sensor_716095 -4): max_pval = 0.00003, |min_val| =  0.059
+        (Sensor_772564 -1): max_pval = 0.00007, |min_val| =  0.056
+        (Sensor_768523 -3): max_pval = 0.00009, |min_val| =  0.055
+        (Sensor_716303 -5): max_pval = 0.00090, |min_val| =  0.047
+        (Sensor_718103 -5): max_pval = 0.00102, |min_val| =  0.046
+        (Sensor_776066 -1): max_pval = 0.00111, |min_val| =  0.046
+        (Sensor_775365 -6): max_pval = 0.00122, |min_val| =  0.045
+
+    Variable Sensor_716113 has 10 link(s):
+        (Sensor_716113 -1): max_pval = 0.00000, |min_val| =  0.757
+        (Sensor_718103 -4): max_pval = 0.00000, |min_val| =  0.173
+        (Sensor_717702 -1): max_pval = 0.00000, |min_val| =  0.152
+        (Sensor_718180 -1): max_pval = 0.00000, |min_val| =  0.092
+        (Sensor_775636 -3): max_pval = 0.00000, |min_val| =  0.081
+        (Sensor_716818 -1): max_pval = 0.00000, |min_val| =  0.081
+        (Sensor_773798 -1): max_pval = 0.00003, |min_val| =  0.059
+        (Sensor_716829 -4): max_pval = 0.00098, |min_val| =  0.046
+        (Sensor_717702 -6): max_pval = 0.00350, |min_val| =  0.041
+        (Sensor_718180 -6): max_pval = 0.00933, |min_val| =  0.037
+
+    Variable Sensor_716128 has 0 link(s):
+
+    Variable Sensor_716151 has 0 link(s):
+
+    Variable Sensor_716163 has 16 link(s):
+        (Sensor_716163 -1): max_pval = 0.00000, |min_val| =  0.597
+        (Sensor_718103 -4): max_pval = 0.00000, |min_val| =  0.156
+        (Sensor_771285 -6): max_pval = 0.00000, |min_val| =  0.128
+        (Sensor_767801 -1): max_pval = 0.00000, |min_val| =  0.093
+        (Sensor_716095 -4): max_pval = 0.00000, |min_val| =  0.092
+        (Sensor_717070 -1): max_pval = 0.00000, |min_val| =  0.077
+        (Sensor_772564 -1): max_pval = 0.00000, |min_val| =  0.076
+        (Sensor_767801 -2): max_pval = 0.00000, |min_val| =  0.073
+        (Sensor_771285 -3): max_pval = 0.00000, |min_val| =  0.068
+        (Sensor_716163 -2): max_pval = 0.00012, |min_val| =  0.054
+        (Sensor_718180 -1): max_pval = 0.00020, |min_val| =  0.052
+        (Sensor_716095 -3): max_pval = 0.00248, |min_val| =  0.043
+        (Sensor_771285 -1): max_pval = 0.00474, |min_val| =  0.040
+        (Sensor_716769 -3): max_pval = 0.00633, |min_val| =  0.038
+        (Sensor_717548 -1): max_pval = 0.00836, |min_val| =  0.037
+        (Sensor_717548 -5): max_pval = 0.00930, |min_val| =  0.037
+
+    Variable Sensor_716187 has 14 link(s):
+        (Sensor_716187 -1): max_pval = 0.00000, |min_val| =  0.597
+        (Sensor_718103 -3): max_pval = 0.00000, |min_val| =  0.167
+        (Sensor_718103 -1): max_pval = 0.00000, |min_val| =  0.143
+        (Sensor_774842 -1): max_pval = 0.00000, |min_val| =  0.141
+        (Sensor_717376 -1): max_pval = 0.00000, |min_val| =  0.098
+        (Sensor_716187 -2): max_pval = 0.00000, |min_val| =  0.081
+        (Sensor_760756 -1): max_pval = 0.00000, |min_val| =  0.078
+        (Sensor_767801 -1): max_pval = 0.00000, |min_val| =  0.076
+        (Sensor_716769 -3): max_pval = 0.00000, |min_val| =  0.072
+        (Sensor_766601 -1): max_pval = 0.00001, |min_val| =  0.062
+        (Sensor_769965 -6): max_pval = 0.00076, |min_val| =  0.047
+        (Sensor_716650 -1): max_pval = 0.00167, |min_val| =  0.044
+        (Sensor_774890 -1): max_pval = 0.00223, |min_val| =  0.043
+        (Sensor_717376 -4): max_pval = 0.00388, |min_val| =  0.041
+
+    Variable Sensor_716290 has 0 link(s):
+
+    Variable Sensor_716303 has 11 link(s):
+        (Sensor_716303 -1): max_pval = 0.00000, |min_val| =  0.792
+        (Sensor_716303 -2): max_pval = 0.00000, |min_val| =  0.109
+        (Sensor_718103 -3): max_pval = 0.00000, |min_val| =  0.101
+        (Sensor_716303 -3): max_pval = 0.00000, |min_val| =  0.087
+        (Sensor_775636 -3): max_pval = 0.00002, |min_val| =  0.059
+        (Sensor_763791 -2): max_pval = 0.00086, |min_val| =  0.047
+        (Sensor_718180 -1): max_pval = 0.00123, |min_val| =  0.045
+        (Sensor_716163 -6): max_pval = 0.00163, |min_val| =  0.044
+        (Sensor_716303 -6): max_pval = 0.00236, |min_val| =  0.043
+        (Sensor_716769 -2): max_pval = 0.00298, |min_val| =  0.042
+        (Sensor_764572 -2): max_pval = 0.00683, |min_val| =  0.038
+
+    Variable Sensor_716348 has 0 link(s):
+
+    Variable Sensor_716381 has 0 link(s):
+
+    Variable Sensor_716415 has 0 link(s):
+
+    Variable Sensor_716464 has 0 link(s):
+
+    Variable Sensor_716473 has 0 link(s):
+
+    Variable Sensor_716484 has 21 link(s):
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.260
+        (Sensor_718103 -1): max_pval = 0.00000, |min_val| =  0.243
+        (Sensor_718103 -3): max_pval = 0.00000, |min_val| =  0.185
+        (Sensor_771285 -1): max_pval = 0.00000, |min_val| =  0.183
+        (Sensor_775636 -1): max_pval = 0.00000, |min_val| =  0.124
+        (Sensor_716163 -1): max_pval = 0.00000, |min_val| =  0.121
+        (Sensor_774890 -1): max_pval = 0.00000, |min_val| =  0.096
+        (Sensor_716163 -6): max_pval = 0.00000, |min_val| =  0.083
+        (Sensor_717070 -5): max_pval = 0.00000, |min_val| =  0.083
+        (Sensor_717070 -6): max_pval = 0.00000, |min_val| =  0.081
+        (Sensor_768523 -4): max_pval = 0.00000, |min_val| =  0.065
+        (Sensor_716187 -1): max_pval = 0.00001, |min_val| =  0.064
+        (Sensor_771421 -4): max_pval = 0.00006, |min_val| =  0.056
+        (Sensor_770076 -5): max_pval = 0.00100, |min_val| =  0.046
+        (Sensor_771285 -6): max_pval = 0.00419, |min_val| =  0.040
+        (Sensor_770076 -1): max_pval = 0.00438, |min_val| =  0.040
+        (Sensor_774842 -2): max_pval = 0.00547, |min_val| =  0.039
+        (Sensor_716657 -1): max_pval = 0.00620, |min_val| =  0.038
+        (Sensor_717997 -3): max_pval = 0.00631, |min_val| =  0.038
+        (Sensor_760756 -2): max_pval = 0.00651, |min_val| =  0.038
+        (Sensor_772354 -6): max_pval = 0.00851, |min_val| =  0.037
+
+    Variable Sensor_716508 has 11 link(s):
+        (Sensor_716508 -1): max_pval = 0.00000, |min_val| =  0.723
+        (Sensor_716508 -6): max_pval = 0.00000, |min_val| =  0.121
+        (Sensor_716508 -3): max_pval = 0.00000, |min_val| =  0.077
+        (Sensor_716508 -5): max_pval = 0.00039, |min_val| =  0.050
+        (Sensor_760756 -3): max_pval = 0.00160, |min_val| =  0.044
+        (Sensor_716187 -5): max_pval = 0.00192, |min_val| =  0.044
+        (Sensor_716163 -5): max_pval = 0.00215, |min_val| =  0.043
+        (Sensor_768523 -2): max_pval = 0.00248, |min_val| =  0.042
+        (Sensor_716163 -1): max_pval = 0.00336, |min_val| =  0.041
+        (Sensor_775552 -4): max_pval = 0.00352, |min_val| =  0.041
+        (Sensor_775859 -4): max_pval = 0.00618, |min_val| =  0.038
+
+    Variable Sensor_716543 has 0 link(s):
+
+    Variable Sensor_716561 has 0 link(s):
+
+    Variable Sensor_716569 has 0 link(s):
+
+    Variable Sensor_716639 has 0 link(s):
+
+    Variable Sensor_716650 has 12 link(s):
+        (Sensor_716650 -1): max_pval = 0.00000, |min_val| =  0.759
+        (Sensor_716650 -2): max_pval = 0.00000, |min_val| =  0.095
+        (Sensor_771285 -1): max_pval = 0.00024, |min_val| =  0.052
+        (Sensor_716650 -3): max_pval = 0.00053, |min_val| =  0.049
+        (Sensor_718103 -3): max_pval = 0.00069, |min_val| =  0.048
+        (Sensor_718103 -2): max_pval = 0.00135, |min_val| =  0.045
+        (Sensor_764572 -1): max_pval = 0.00167, |min_val| =  0.044
+        (Sensor_718384 -2): max_pval = 0.00200, |min_val| =  0.043
+        (Sensor_768222 -2): max_pval = 0.00376, |min_val| =  0.041
+        (Sensor_769965 -2): max_pval = 0.00412, |min_val| =  0.040
+        (Sensor_775859 -6): max_pval = 0.00520, |min_val| =  0.039
+        (Sensor_775636 -4): max_pval = 0.00942, |min_val| =  0.036
+
+    Variable Sensor_716657 has 15 link(s):
+        (Sensor_716657 -1): max_pval = 0.00000, |min_val| =  0.741
+        (Sensor_716163 -5): max_pval = 0.00000, |min_val| =  0.100
+        (Sensor_716095 -4): max_pval = 0.00000, |min_val| =  0.072
+        (Sensor_767801 -1): max_pval = 0.00000, |min_val| =  0.068
+        (Sensor_766029 -1): max_pval = 0.00003, |min_val| =  0.058
+        (Sensor_718180 -1): max_pval = 0.00003, |min_val| =  0.058
+        (Sensor_771285 -6): max_pval = 0.00029, |min_val| =  0.051
+        (Sensor_774812 -1): max_pval = 0.00064, |min_val| =  0.048
+        (Sensor_766601 -6): max_pval = 0.00089, |min_val| =  0.047
+        (Sensor_766029 -2): max_pval = 0.00133, |min_val| =  0.045
+        (Sensor_716818 -6): max_pval = 0.00136, |min_val| =  0.045
+        (Sensor_766029 -5): max_pval = 0.00142, |min_val| =  0.045
+        (Sensor_718103 -4): max_pval = 0.00150, |min_val| =  0.045
+        (Sensor_716769 -2): max_pval = 0.00267, |min_val| =  0.042
+        (Sensor_772564 -1): max_pval = 0.00375, |min_val| =  0.041
+
+    Variable Sensor_716670 has 21 link(s):
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.261
+        (Sensor_718103 -1): max_pval = 0.00000, |min_val| =  0.243
+        (Sensor_718103 -3): max_pval = 0.00000, |min_val| =  0.185
+        (Sensor_771285 -1): max_pval = 0.00000, |min_val| =  0.183
+        (Sensor_775636 -1): max_pval = 0.00000, |min_val| =  0.123
+        (Sensor_716163 -1): max_pval = 0.00000, |min_val| =  0.121
+        (Sensor_774890 -1): max_pval = 0.00000, |min_val| =  0.095
+        (Sensor_717070 -5): max_pval = 0.00000, |min_val| =  0.083
+        (Sensor_716163 -6): max_pval = 0.00000, |min_val| =  0.083
+        (Sensor_717070 -6): max_pval = 0.00000, |min_val| =  0.079
+        (Sensor_768523 -4): max_pval = 0.00000, |min_val| =  0.065
+        (Sensor_716187 -1): max_pval = 0.00001, |min_val| =  0.064
+        (Sensor_771421 -4): max_pval = 0.00005, |min_val| =  0.057
+        (Sensor_770076 -5): max_pval = 0.00088, |min_val| =  0.047
+        (Sensor_771285 -6): max_pval = 0.00377, |min_val| =  0.041
+        (Sensor_774842 -2): max_pval = 0.00543, |min_val| =  0.039
+        (Sensor_717997 -3): max_pval = 0.00628, |min_val| =  0.038
+        (Sensor_716657 -1): max_pval = 0.00640, |min_val| =  0.038
+        (Sensor_716163 -3): max_pval = 0.00657, |min_val| =  0.038
+        (Sensor_765150 -4): max_pval = 0.00816, |min_val| =  0.037
+        (Sensor_760756 -2): max_pval = 0.00848, |min_val| =  0.037
+
+    Variable Sensor_716685 has 12 link(s):
+        (Sensor_716685 -1): max_pval = 0.00000, |min_val| =  0.625
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.289
+        (Sensor_718103 -4): max_pval = 0.00000, |min_val| =  0.114
+        (Sensor_766601 -2): max_pval = 0.00000, |min_val| =  0.110
+        (Sensor_775859 -2): max_pval = 0.00032, |min_val| =  0.051
+        (Sensor_716685 -2): max_pval = 0.00125, |min_val| =  0.045
+        (Sensor_716163 -5): max_pval = 0.00209, |min_val| =  0.043
+        (Sensor_775636 -4): max_pval = 0.00397, |min_val| =  0.040
+        (Sensor_774890 -1): max_pval = 0.00473, |min_val| =  0.040
+        (Sensor_716095 -4): max_pval = 0.00547, |min_val| =  0.039
+        (Sensor_717548 -4): max_pval = 0.00597, |min_val| =  0.039
+        (Sensor_716769 -2): max_pval = 0.00877, |min_val| =  0.037
+
+    Variable Sensor_716731 has 0 link(s):
+
+    Variable Sensor_716749 has 0 link(s):
+
+    Variable Sensor_716769 has 12 link(s):
+        (Sensor_716769 -1): max_pval = 0.00000, |min_val| =  0.710
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.248
+        (Sensor_718103 -3): max_pval = 0.00000, |min_val| =  0.184
+        (Sensor_774890 -1): max_pval = 0.00000, |min_val| =  0.094
+        (Sensor_766601 -3): max_pval = 0.00000, |min_val| =  0.084
+        (Sensor_717997 -1): max_pval = 0.00000, |min_val| =  0.066
+        (Sensor_716769 -5): max_pval = 0.00001, |min_val| =  0.063
+        (Sensor_716818 -2): max_pval = 0.00005, |min_val| =  0.057
+        (Sensor_716508 -1): max_pval = 0.00043, |min_val| =  0.049
+        (Sensor_766601 -4): max_pval = 0.00248, |min_val| =  0.043
+        (Sensor_760756 -3): max_pval = 0.00370, |min_val| =  0.041
+        (Sensor_770076 -6): max_pval = 0.00862, |min_val| =  0.037
+
+    Variable Sensor_716797 has 12 link(s):
+        (Sensor_716797 -1): max_pval = 0.00000, |min_val| =  0.740
+        (Sensor_716797 -2): max_pval = 0.00000, |min_val| =  0.435
+        (Sensor_718103 -2): max_pval = 0.00000, |min_val| =  0.210
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.141
+        (Sensor_769965 -6): max_pval = 0.00000, |min_val| =  0.097
+        (Sensor_771285 -1): max_pval = 0.00000, |min_val| =  0.080
+        (Sensor_716829 -2): max_pval = 0.00000, |min_val| =  0.070
+        (Sensor_771421 -4): max_pval = 0.00000, |min_val| =  0.068
+        (Sensor_771421 -2): max_pval = 0.00000, |min_val| =  0.064
+        (Sensor_716818 -2): max_pval = 0.00264, |min_val| =  0.042
+        (Sensor_764572 -1): max_pval = 0.00341, |min_val| =  0.041
+        (Sensor_776066 -2): max_pval = 0.00355, |min_val| =  0.041
+
+    Variable Sensor_716818 has 15 link(s):
+        (Sensor_716818 -1): max_pval = 0.00000, |min_val| =  0.734
+        (Sensor_718103 -3): max_pval = 0.00000, |min_val| =  0.135
+        (Sensor_716508 -2): max_pval = 0.00000, |min_val| =  0.068
+        (Sensor_717997 -1): max_pval = 0.00000, |min_val| =  0.067
+        (Sensor_718384 -3): max_pval = 0.00007, |min_val| =  0.056
+        (Sensor_766601 -4): max_pval = 0.00016, |min_val| =  0.053
+        (Sensor_718103 -1): max_pval = 0.00016, |min_val| =  0.053
+        (Sensor_773798 -1): max_pval = 0.00018, |min_val| =  0.053
+        (Sensor_718103 -2): max_pval = 0.00034, |min_val| =  0.050
+        (Sensor_768523 -6): max_pval = 0.00103, |min_val| =  0.046
+        (Sensor_717376 -1): max_pval = 0.00130, |min_val| =  0.045
+        (Sensor_716163 -6): max_pval = 0.00171, |min_val| =  0.044
+        (Sensor_767801 -1): max_pval = 0.00226, |min_val| =  0.043
+        (Sensor_717997 -4): max_pval = 0.00231, |min_val| =  0.043
+        (Sensor_772564 -2): max_pval = 0.00868, |min_val| =  0.037
+
+    Variable Sensor_716829 has 16 link(s):
+        (Sensor_716829 -1): max_pval = 0.00000, |min_val| =  0.782
+        (Sensor_716829 -2): max_pval = 0.00000, |min_val| =  0.312
+        (Sensor_718103 -3): max_pval = 0.00000, |min_val| =  0.118
+        (Sensor_716163 -6): max_pval = 0.00000, |min_val| =  0.069
+        (Sensor_766601 -1): max_pval = 0.00001, |min_val| =  0.062
+        (Sensor_718103 -2): max_pval = 0.00010, |min_val| =  0.055
+        (Sensor_767801 -3): max_pval = 0.00028, |min_val| =  0.051
+        (Sensor_772564 -2): max_pval = 0.00080, |min_val| =  0.047
+        (Sensor_716163 -1): max_pval = 0.00086, |min_val| =  0.047
+        (Sensor_716797 -2): max_pval = 0.00129, |min_val| =  0.045
+        (Sensor_717548 -4): max_pval = 0.00279, |min_val| =  0.042
+        (Sensor_717997 -3): max_pval = 0.00333, |min_val| =  0.041
+        (Sensor_774890 -6): max_pval = 0.00602, |min_val| =  0.039
+        (Sensor_770076 -5): max_pval = 0.00613, |min_val| =  0.039
+        (Sensor_718384 -2): max_pval = 0.00658, |min_val| =  0.038
+        (Sensor_767801 -1): max_pval = 0.00875, |min_val| =  0.037
+
+    Variable Sensor_716943 has 21 link(s):
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.261
+        (Sensor_718103 -1): max_pval = 0.00000, |min_val| =  0.243
+        (Sensor_718103 -3): max_pval = 0.00000, |min_val| =  0.185
+        (Sensor_771285 -1): max_pval = 0.00000, |min_val| =  0.183
+        (Sensor_775636 -1): max_pval = 0.00000, |min_val| =  0.123
+        (Sensor_716163 -1): max_pval = 0.00000, |min_val| =  0.121
+        (Sensor_774890 -1): max_pval = 0.00000, |min_val| =  0.095
+        (Sensor_717070 -5): max_pval = 0.00000, |min_val| =  0.083
+        (Sensor_716163 -6): max_pval = 0.00000, |min_val| =  0.083
+        (Sensor_717070 -6): max_pval = 0.00000, |min_val| =  0.079
+        (Sensor_768523 -4): max_pval = 0.00000, |min_val| =  0.065
+        (Sensor_716187 -1): max_pval = 0.00001, |min_val| =  0.064
+        (Sensor_771421 -4): max_pval = 0.00005, |min_val| =  0.057
+        (Sensor_770076 -5): max_pval = 0.00088, |min_val| =  0.047
+        (Sensor_771285 -6): max_pval = 0.00377, |min_val| =  0.041
+        (Sensor_774842 -2): max_pval = 0.00543, |min_val| =  0.039
+        (Sensor_717997 -3): max_pval = 0.00628, |min_val| =  0.038
+        (Sensor_716657 -1): max_pval = 0.00640, |min_val| =  0.038
+        (Sensor_716163 -3): max_pval = 0.00657, |min_val| =  0.038
+        (Sensor_765150 -4): max_pval = 0.00816, |min_val| =  0.037
+        (Sensor_760756 -2): max_pval = 0.00848, |min_val| =  0.037
+
+    Variable Sensor_717070 has 19 link(s):
+        (Sensor_717070 -1): max_pval = 0.00000, |min_val| =  0.541
+        (Sensor_718103 -1): max_pval = 0.00000, |min_val| =  0.361
+        (Sensor_718103 -3): max_pval = 0.00000, |min_val| =  0.296
+        (Sensor_771285 -6): max_pval = 0.00000, |min_val| =  0.176
+        (Sensor_771285 -1): max_pval = 0.00000, |min_val| =  0.116
+        (Sensor_772564 -1): max_pval = 0.00000, |min_val| =  0.095
+        (Sensor_770076 -6): max_pval = 0.00000, |min_val| =  0.071
+        (Sensor_716163 -1): max_pval = 0.00000, |min_val| =  0.067
+        (Sensor_772564 -3): max_pval = 0.00024, |min_val| =  0.052
+        (Sensor_760756 -1): max_pval = 0.00041, |min_val| =  0.050
+        (Sensor_717997 -3): max_pval = 0.00053, |min_val| =  0.049
+        (Sensor_771421 -5): max_pval = 0.00102, |min_val| =  0.046
+        (Sensor_760756 -4): max_pval = 0.00113, |min_val| =  0.046
+        (Sensor_716657 -4): max_pval = 0.00180, |min_val| =  0.044
+        (Sensor_775552 -1): max_pval = 0.00326, |min_val| =  0.041
+        (Sensor_716818 -1): max_pval = 0.00445, |min_val| =  0.040
+        (Sensor_760756 -6): max_pval = 0.00642, |min_val| =  0.038
+        (Sensor_717628 -5): max_pval = 0.00777, |min_val| =  0.037
+        (Sensor_770076 -2): max_pval = 0.00972, |min_val| =  0.036
+
+    Variable Sensor_717376 has 16 link(s):
+        (Sensor_717376 -1): max_pval = 0.00000, |min_val| =  0.787
+        (Sensor_718103 -3): max_pval = 0.00000, |min_val| =  0.288
+        (Sensor_717376 -2): max_pval = 0.00000, |min_val| =  0.281
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.192
+        (Sensor_767801 -1): max_pval = 0.00000, |min_val| =  0.070
+        (Sensor_777733 -1): max_pval = 0.00001, |min_val| =  0.063
+        (Sensor_775365 -1): max_pval = 0.00001, |min_val| =  0.062
+        (Sensor_716650 -1): max_pval = 0.00001, |min_val| =  0.062
+        (Sensor_716095 -6): max_pval = 0.00003, |min_val| =  0.059
+        (Sensor_716163 -1): max_pval = 0.00010, |min_val| =  0.055
+        (Sensor_716769 -1): max_pval = 0.00014, |min_val| =  0.053
+        (Sensor_771285 -1): max_pval = 0.00097, |min_val| =  0.046
+        (Sensor_717376 -3): max_pval = 0.00112, |min_val| =  0.046
+        (Sensor_766601 -2): max_pval = 0.00208, |min_val| =  0.043
+        (Sensor_770076 -4): max_pval = 0.00268, |min_val| =  0.042
+        (Sensor_771421 -4): max_pval = 0.00780, |min_val| =  0.037
+
+    Variable Sensor_717548 has 16 link(s):
+        (Sensor_717548 -1): max_pval = 0.00000, |min_val| =  0.739
+        (Sensor_717070 -6): max_pval = 0.00000, |min_val| =  0.134
+        (Sensor_716769 -3): max_pval = 0.00000, |min_val| =  0.117
+        (Sensor_716769 -1): max_pval = 0.00000, |min_val| =  0.101
+        (Sensor_718103 -3): max_pval = 0.00000, |min_val| =  0.095
+        (Sensor_718103 -1): max_pval = 0.00000, |min_val| =  0.094
+        (Sensor_766601 -4): max_pval = 0.00004, |min_val| =  0.057
+        (Sensor_716818 -1): max_pval = 0.00009, |min_val| =  0.055
+        (Sensor_768523 -6): max_pval = 0.00018, |min_val| =  0.053
+        (Sensor_717548 -5): max_pval = 0.00073, |min_val| =  0.047
+        (Sensor_716508 -1): max_pval = 0.00273, |min_val| =  0.042
+        (Sensor_767912 -5): max_pval = 0.00384, |min_val| =  0.041
+        (Sensor_716508 -2): max_pval = 0.00443, |min_val| =  0.040
+        (Sensor_716163 -6): max_pval = 0.00845, |min_val| =  0.037
+        (Sensor_716303 -1): max_pval = 0.00905, |min_val| =  0.037
+        (Sensor_716657 -6): max_pval = 0.00909, |min_val| =  0.037
+
+    Variable Sensor_717628 has 10 link(s):
+        (Sensor_717628 -1): max_pval = 0.00000, |min_val| =  0.781
+        (Sensor_717628 -2): max_pval = 0.00000, |min_val| =  0.240
+        (Sensor_718103 -4): max_pval = 0.00000, |min_val| =  0.204
+        (Sensor_775636 -3): max_pval = 0.00000, |min_val| =  0.134
+        (Sensor_716769 -3): max_pval = 0.00005, |min_val| =  0.057
+        (Sensor_716508 -1): max_pval = 0.00031, |min_val| =  0.051
+        (Sensor_764572 -6): max_pval = 0.00098, |min_val| =  0.046
+        (Sensor_766601 -1): max_pval = 0.00355, |min_val| =  0.041
+        (Sensor_772564 -1): max_pval = 0.00636, |min_val| =  0.038
+        (Sensor_765150 -6): max_pval = 0.00715, |min_val| =  0.038
+
+    Variable Sensor_717690 has 0 link(s):
+
+    Variable Sensor_717702 has 11 link(s):
+        (Sensor_717702 -1): max_pval = 0.00000, |min_val| =  0.791
+        (Sensor_717702 -4): max_pval = 0.00000, |min_val| =  0.150
+        (Sensor_717070 -6): max_pval = 0.00000, |min_val| =  0.101
+        (Sensor_718103 -4): max_pval = 0.00000, |min_val| =  0.087
+        (Sensor_716113 -1): max_pval = 0.00000, |min_val| =  0.074
+        (Sensor_717070 -1): max_pval = 0.00001, |min_val| =  0.064
+        (Sensor_775636 -5): max_pval = 0.00004, |min_val| =  0.058
+        (Sensor_774890 -4): max_pval = 0.00026, |min_val| =  0.051
+        (Sensor_774842 -3): max_pval = 0.00607, |min_val| =  0.039
+        (Sensor_775859 -1): max_pval = 0.00653, |min_val| =  0.038
+        (Sensor_716657 -6): max_pval = 0.00766, |min_val| =  0.037
+
+    Variable Sensor_717997 has 14 link(s):
+        (Sensor_717997 -1): max_pval = 0.00000, |min_val| =  0.710
+        (Sensor_769965 -6): max_pval = 0.00000, |min_val| =  0.150
+        (Sensor_775636 -2): max_pval = 0.00000, |min_val| =  0.109
+        (Sensor_717997 -2): max_pval = 0.00008, |min_val| =  0.055
+        (Sensor_717070 -1): max_pval = 0.00011, |min_val| =  0.054
+        (Sensor_765150 -2): max_pval = 0.00028, |min_val| =  0.051
+        (Sensor_771421 -2): max_pval = 0.00046, |min_val| =  0.049
+        (Sensor_771706 -6): max_pval = 0.00060, |min_val| =  0.048
+        (Sensor_716818 -3): max_pval = 0.00078, |min_val| =  0.047
+        (Sensor_717997 -3): max_pval = 0.00217, |min_val| =  0.043
+        (Sensor_775365 -2): max_pval = 0.00379, |min_val| =  0.041
+        (Sensor_766601 -5): max_pval = 0.00507, |min_val| =  0.039
+        (Sensor_775636 -1): max_pval = 0.00931, |min_val| =  0.037
+        (Sensor_766714 -6): max_pval = 0.00933, |min_val| =  0.037
+
+    Variable Sensor_718060 has 10 link(s):
+        (Sensor_718060 -1): max_pval = 0.00000, |min_val| =  0.710
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.213
+        (Sensor_716650 -1): max_pval = 0.00000, |min_val| =  0.152
+        (Sensor_716650 -3): max_pval = 0.00032, |min_val| =  0.051
+        (Sensor_768222 -2): max_pval = 0.00043, |min_val| =  0.049
+        (Sensor_766601 -4): max_pval = 0.00076, |min_val| =  0.047
+        (Sensor_718384 -6): max_pval = 0.00363, |min_val| =  0.041
+        (Sensor_766601 -3): max_pval = 0.00517, |min_val| =  0.039
+        (Sensor_718384 -5): max_pval = 0.00599, |min_val| =  0.039
+        (Sensor_716769 -2): max_pval = 0.00834, |min_val| =  0.037
+
+    Variable Sensor_718096 has 0 link(s):
+
+    Variable Sensor_718103 has 18 link(s):
+        (Sensor_718103 -1): max_pval = 0.00000, |min_val| =  0.456
+        (Sensor_718103 -2): max_pval = 0.00000, |min_val| =  0.302
+        (Sensor_767801 -1): max_pval = 0.00000, |min_val| =  0.134
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.126
+        (Sensor_775365 -1): max_pval = 0.00000, |min_val| =  0.124
+        (Sensor_717997 -1): max_pval = 0.00000, |min_val| =  0.116
+        (Sensor_716095 -1): max_pval = 0.00000, |min_val| =  0.078
+        (Sensor_771285 -1): max_pval = 0.00000, |min_val| =  0.068
+        (Sensor_717070 -5): max_pval = 0.00004, |min_val| =  0.058
+        (Sensor_717997 -3): max_pval = 0.00007, |min_val| =  0.056
+        (Sensor_716187 -1): max_pval = 0.00018, |min_val| =  0.053
+        (Sensor_717548 -4): max_pval = 0.00039, |min_val| =  0.050
+        (Sensor_774890 -4): max_pval = 0.00078, |min_val| =  0.047
+        (Sensor_716797 -4): max_pval = 0.00128, |min_val| =  0.045
+        (Sensor_771421 -3): max_pval = 0.00220, |min_val| =  0.043
+        (Sensor_777733 -1): max_pval = 0.00348, |min_val| =  0.041
+        (Sensor_776066 -2): max_pval = 0.00380, |min_val| =  0.041
+        (Sensor_775636 -4): max_pval = 0.00728, |min_val| =  0.038
+
+    Variable Sensor_718180 has 19 link(s):
+        (Sensor_718180 -1): max_pval = 0.00000, |min_val| =  0.781
+        (Sensor_718180 -2): max_pval = 0.00000, |min_val| =  0.208
+        (Sensor_717070 -6): max_pval = 0.00000, |min_val| =  0.097
+        (Sensor_716163 -6): max_pval = 0.00000, |min_val| =  0.071
+        (Sensor_771421 -5): max_pval = 0.00001, |min_val| =  0.062
+        (Sensor_769965 -3): max_pval = 0.00001, |min_val| =  0.062
+        (Sensor_716657 -6): max_pval = 0.00004, |min_val| =  0.058
+        (Sensor_769819 -6): max_pval = 0.00025, |min_val| =  0.051
+        (Sensor_765150 -5): max_pval = 0.00031, |min_val| =  0.051
+        (Sensor_775859 -1): max_pval = 0.00060, |min_val| =  0.048
+        (Sensor_765150 -6): max_pval = 0.00087, |min_val| =  0.047
+        (Sensor_716095 -3): max_pval = 0.00197, |min_val| =  0.043
+        (Sensor_716163 -4): max_pval = 0.00241, |min_val| =  0.043
+        (Sensor_770076 -6): max_pval = 0.00370, |min_val| =  0.041
+        (Sensor_717376 -6): max_pval = 0.00380, |min_val| =  0.041
+        (Sensor_775859 -6): max_pval = 0.00465, |min_val| =  0.040
+        (Sensor_765150 -3): max_pval = 0.00569, |min_val| =  0.039
+        (Sensor_774812 -1): max_pval = 0.00586, |min_val| =  0.039
+        (Sensor_716113 -3): max_pval = 0.00633, |min_val| =  0.038
+
+    Variable Sensor_718384 has 23 link(s):
+        (Sensor_718384 -1): max_pval = 0.00000, |min_val| =  0.443
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.245
+        (Sensor_716163 -1): max_pval = 0.00000, |min_val| =  0.096
+        (Sensor_771285 -1): max_pval = 0.00000, |min_val| =  0.092
+        (Sensor_716163 -6): max_pval = 0.00000, |min_val| =  0.088
+        (Sensor_766601 -3): max_pval = 0.00000, |min_val| =  0.074
+        (Sensor_718384 -2): max_pval = 0.00000, |min_val| =  0.066
+        (Sensor_717997 -3): max_pval = 0.00000, |min_val| =  0.066
+        (Sensor_718060 -5): max_pval = 0.00001, |min_val| =  0.064
+        (Sensor_770076 -5): max_pval = 0.00002, |min_val| =  0.060
+        (Sensor_718103 -2): max_pval = 0.00005, |min_val| =  0.057
+        (Sensor_718103 -4): max_pval = 0.00009, |min_val| =  0.055
+        (Sensor_716657 -1): max_pval = 0.00017, |min_val| =  0.053
+        (Sensor_771285 -6): max_pval = 0.00018, |min_val| =  0.053
+        (Sensor_767801 -1): max_pval = 0.00116, |min_val| =  0.046
+        (Sensor_716769 -1): max_pval = 0.00143, |min_val| =  0.045
+        (Sensor_771421 -3): max_pval = 0.00185, |min_val| =  0.044
+        (Sensor_770076 -2): max_pval = 0.00213, |min_val| =  0.043
+        (Sensor_717997 -1): max_pval = 0.00324, |min_val| =  0.041
+        (Sensor_769965 -2): max_pval = 0.00330, |min_val| =  0.041
+        (Sensor_717997 -2): max_pval = 0.00346, |min_val| =  0.041
+        (Sensor_772564 -1): max_pval = 0.00356, |min_val| =  0.041
+        (Sensor_716797 -4): max_pval = 0.00546, |min_val| =  0.039
+
+    Variable Sensor_718391 has 0 link(s):
+
+    Variable Sensor_718465 has 0 link(s):
+
+    Variable Sensor_760166 has 20 link(s):
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.470
+        (Sensor_771285 -1): max_pval = 0.00000, |min_val| =  0.131
+        (Sensor_774842 -1): max_pval = 0.00000, |min_val| =  0.114
+        (Sensor_774842 -3): max_pval = 0.00000, |min_val| =  0.104
+        (Sensor_775636 -1): max_pval = 0.00000, |min_val| =  0.094
+        (Sensor_718103 -4): max_pval = 0.00000, |min_val| =  0.081
+        (Sensor_767801 -2): max_pval = 0.00000, |min_val| =  0.072
+        (Sensor_717997 -3): max_pval = 0.00000, |min_val| =  0.067
+        (Sensor_767801 -6): max_pval = 0.00001, |min_val| =  0.064
+        (Sensor_718103 -3): max_pval = 0.00001, |min_val| =  0.064
+        (Sensor_717376 -1): max_pval = 0.00002, |min_val| =  0.061
+        (Sensor_716797 -3): max_pval = 0.00019, |min_val| =  0.052
+        (Sensor_770076 -1): max_pval = 0.00030, |min_val| =  0.051
+        (Sensor_771421 -3): max_pval = 0.00066, |min_val| =  0.048
+        (Sensor_775859 -6): max_pval = 0.00184, |min_val| =  0.044
+        (Sensor_775365 -2): max_pval = 0.00249, |min_val| =  0.043
+        (Sensor_770243 -6): max_pval = 0.00578, |min_val| =  0.039
+        (Sensor_716657 -1): max_pval = 0.00613, |min_val| =  0.039
+        (Sensor_766209 -1): max_pval = 0.00739, |min_val| =  0.038
+        (Sensor_716769 -3): max_pval = 0.00826, |min_val| =  0.037
+
+    Variable Sensor_760256 has 20 link(s):
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.470
+        (Sensor_771285 -1): max_pval = 0.00000, |min_val| =  0.131
+        (Sensor_774842 -1): max_pval = 0.00000, |min_val| =  0.114
+        (Sensor_774842 -3): max_pval = 0.00000, |min_val| =  0.104
+        (Sensor_775636 -1): max_pval = 0.00000, |min_val| =  0.094
+        (Sensor_718103 -4): max_pval = 0.00000, |min_val| =  0.081
+        (Sensor_767801 -2): max_pval = 0.00000, |min_val| =  0.072
+        (Sensor_717997 -3): max_pval = 0.00000, |min_val| =  0.067
+        (Sensor_767801 -6): max_pval = 0.00001, |min_val| =  0.064
+        (Sensor_718103 -3): max_pval = 0.00001, |min_val| =  0.064
+        (Sensor_717376 -1): max_pval = 0.00002, |min_val| =  0.061
+        (Sensor_716797 -3): max_pval = 0.00019, |min_val| =  0.052
+        (Sensor_770076 -1): max_pval = 0.00030, |min_val| =  0.051
+        (Sensor_771421 -3): max_pval = 0.00066, |min_val| =  0.048
+        (Sensor_775859 -6): max_pval = 0.00184, |min_val| =  0.044
+        (Sensor_775365 -2): max_pval = 0.00249, |min_val| =  0.043
+        (Sensor_770243 -6): max_pval = 0.00578, |min_val| =  0.039
+        (Sensor_716657 -1): max_pval = 0.00613, |min_val| =  0.039
+        (Sensor_766209 -1): max_pval = 0.00739, |min_val| =  0.038
+        (Sensor_716769 -3): max_pval = 0.00826, |min_val| =  0.037
+
+    Variable Sensor_760756 has 16 link(s):
+        (Sensor_760756 -1): max_pval = 0.00000, |min_val| =  0.720
+        (Sensor_760756 -2): max_pval = 0.00000, |min_val| =  0.331
+        (Sensor_718103 -3): max_pval = 0.00000, |min_val| =  0.197
+        (Sensor_716163 -6): max_pval = 0.00000, |min_val| =  0.131
+        (Sensor_769965 -2): max_pval = 0.00000, |min_val| =  0.097
+        (Sensor_718103 -1): max_pval = 0.00000, |min_val| =  0.094
+        (Sensor_774812 -1): max_pval = 0.00000, |min_val| =  0.067
+        (Sensor_716657 -1): max_pval = 0.00001, |min_val| =  0.061
+        (Sensor_717548 -3): max_pval = 0.00003, |min_val| =  0.058
+        (Sensor_717070 -1): max_pval = 0.00005, |min_val| =  0.057
+        (Sensor_775636 -4): max_pval = 0.00018, |min_val| =  0.053
+        (Sensor_772564 -2): max_pval = 0.00040, |min_val| =  0.050
+        (Sensor_716095 -6): max_pval = 0.00068, |min_val| =  0.048
+        (Sensor_775859 -1): max_pval = 0.00168, |min_val| =  0.044
+        (Sensor_716657 -6): max_pval = 0.00401, |min_val| =  0.040
+        (Sensor_774890 -1): max_pval = 0.00818, |min_val| =  0.037
+
+    Variable Sensor_763791 has 10 link(s):
+        (Sensor_763791 -1): max_pval = 0.00000, |min_val| =  0.647
+        (Sensor_716818 -1): max_pval = 0.00000, |min_val| =  0.200
+        (Sensor_718103 -4): max_pval = 0.00000, |min_val| =  0.129
+        (Sensor_773798 -1): max_pval = 0.00000, |min_val| =  0.109
+        (Sensor_717702 -1): max_pval = 0.00000, |min_val| =  0.099
+        (Sensor_716508 -1): max_pval = 0.00000, |min_val| =  0.075
+        (Sensor_775636 -3): max_pval = 0.00001, |min_val| =  0.063
+        (Sensor_776066 -4): max_pval = 0.00004, |min_val| =  0.058
+        (Sensor_767912 -2): max_pval = 0.00007, |min_val| =  0.056
+        (Sensor_777733 -1): max_pval = 0.00469, |min_val| =  0.040
+
+    Variable Sensor_764295 has 20 link(s):
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.470
+        (Sensor_771285 -1): max_pval = 0.00000, |min_val| =  0.131
+        (Sensor_774842 -1): max_pval = 0.00000, |min_val| =  0.114
+        (Sensor_774842 -3): max_pval = 0.00000, |min_val| =  0.104
+        (Sensor_775636 -1): max_pval = 0.00000, |min_val| =  0.094
+        (Sensor_718103 -4): max_pval = 0.00000, |min_val| =  0.081
+        (Sensor_767801 -2): max_pval = 0.00000, |min_val| =  0.072
+        (Sensor_717997 -3): max_pval = 0.00000, |min_val| =  0.067
+        (Sensor_767801 -6): max_pval = 0.00001, |min_val| =  0.064
+        (Sensor_718103 -3): max_pval = 0.00001, |min_val| =  0.064
+        (Sensor_717376 -1): max_pval = 0.00002, |min_val| =  0.061
+        (Sensor_716797 -3): max_pval = 0.00019, |min_val| =  0.052
+        (Sensor_770076 -1): max_pval = 0.00030, |min_val| =  0.051
+        (Sensor_771421 -3): max_pval = 0.00066, |min_val| =  0.048
+        (Sensor_775859 -6): max_pval = 0.00184, |min_val| =  0.044
+        (Sensor_775365 -2): max_pval = 0.00249, |min_val| =  0.043
+        (Sensor_770243 -6): max_pval = 0.00578, |min_val| =  0.039
+        (Sensor_716657 -1): max_pval = 0.00613, |min_val| =  0.039
+        (Sensor_766209 -1): max_pval = 0.00739, |min_val| =  0.038
+        (Sensor_716769 -3): max_pval = 0.00826, |min_val| =  0.037
+
+    Variable Sensor_764572 has 15 link(s):
+        (Sensor_764572 -1): max_pval = 0.00000, |min_val| =  0.314
+        (Sensor_718103 -4): max_pval = 0.00000, |min_val| =  0.238
+        (Sensor_767801 -1): max_pval = 0.00000, |min_val| =  0.147
+        (Sensor_760756 -1): max_pval = 0.00000, |min_val| =  0.133
+        (Sensor_772564 -1): max_pval = 0.00000, |min_val| =  0.118
+        (Sensor_772564 -2): max_pval = 0.00000, |min_val| =  0.089
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.088
+        (Sensor_774890 -2): max_pval = 0.00000, |min_val| =  0.070
+        (Sensor_766209 -1): max_pval = 0.00000, |min_val| =  0.069
+        (Sensor_764572 -2): max_pval = 0.00003, |min_val| =  0.059
+        (Sensor_717548 -3): max_pval = 0.00005, |min_val| =  0.057
+        (Sensor_718103 -3): max_pval = 0.00021, |min_val| =  0.052
+        (Sensor_770076 -4): max_pval = 0.00030, |min_val| =  0.051
+        (Sensor_717997 -4): max_pval = 0.00288, |min_val| =  0.042
+        (Sensor_716163 -1): max_pval = 0.00411, |min_val| =  0.040
+
+    Variable Sensor_764891 has 20 link(s):
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.485
+        (Sensor_771285 -1): max_pval = 0.00000, |min_val| =  0.130
+        (Sensor_774842 -3): max_pval = 0.00000, |min_val| =  0.121
+        (Sensor_716163 -6): max_pval = 0.00000, |min_val| =  0.099
+        (Sensor_775636 -1): max_pval = 0.00000, |min_val| =  0.091
+        (Sensor_774842 -1): max_pval = 0.00000, |min_val| =  0.086
+        (Sensor_718103 -4): max_pval = 0.00000, |min_val| =  0.081
+        (Sensor_767801 -2): max_pval = 0.00000, |min_val| =  0.073
+        (Sensor_717997 -3): max_pval = 0.00000, |min_val| =  0.067
+        (Sensor_718103 -3): max_pval = 0.00002, |min_val| =  0.061
+        (Sensor_775636 -5): max_pval = 0.00004, |min_val| =  0.057
+        (Sensor_716797 -3): max_pval = 0.00017, |min_val| =  0.053
+        (Sensor_716657 -1): max_pval = 0.00026, |min_val| =  0.051
+        (Sensor_717376 -1): max_pval = 0.00043, |min_val| =  0.049
+        (Sensor_771421 -3): max_pval = 0.00052, |min_val| =  0.049
+        (Sensor_716163 -2): max_pval = 0.00223, |min_val| =  0.043
+        (Sensor_775365 -2): max_pval = 0.00252, |min_val| =  0.042
+        (Sensor_776066 -1): max_pval = 0.00430, |min_val| =  0.040
+        (Sensor_766209 -1): max_pval = 0.00666, |min_val| =  0.038
+        (Sensor_770243 -6): max_pval = 0.00842, |min_val| =  0.037
+
+    Variable Sensor_764927 has 21 link(s):
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.261
+        (Sensor_718103 -1): max_pval = 0.00000, |min_val| =  0.243
+        (Sensor_718103 -3): max_pval = 0.00000, |min_val| =  0.185
+        (Sensor_771285 -1): max_pval = 0.00000, |min_val| =  0.183
+        (Sensor_775636 -1): max_pval = 0.00000, |min_val| =  0.123
+        (Sensor_716163 -1): max_pval = 0.00000, |min_val| =  0.121
+        (Sensor_774890 -1): max_pval = 0.00000, |min_val| =  0.095
+        (Sensor_717070 -5): max_pval = 0.00000, |min_val| =  0.083
+        (Sensor_716163 -6): max_pval = 0.00000, |min_val| =  0.083
+        (Sensor_717070 -6): max_pval = 0.00000, |min_val| =  0.079
+        (Sensor_768523 -4): max_pval = 0.00000, |min_val| =  0.065
+        (Sensor_716187 -1): max_pval = 0.00001, |min_val| =  0.064
+        (Sensor_771421 -4): max_pval = 0.00005, |min_val| =  0.057
+        (Sensor_770076 -5): max_pval = 0.00088, |min_val| =  0.047
+        (Sensor_771285 -6): max_pval = 0.00377, |min_val| =  0.041
+        (Sensor_774842 -2): max_pval = 0.00543, |min_val| =  0.039
+        (Sensor_717997 -3): max_pval = 0.00628, |min_val| =  0.038
+        (Sensor_716657 -1): max_pval = 0.00640, |min_val| =  0.038
+        (Sensor_716163 -3): max_pval = 0.00657, |min_val| =  0.038
+        (Sensor_765150 -4): max_pval = 0.00816, |min_val| =  0.037
+        (Sensor_760756 -2): max_pval = 0.00848, |min_val| =  0.037
+
+    Variable Sensor_765113 has 0 link(s):
+
+    Variable Sensor_765150 has 20 link(s):
+        (Sensor_765150 -1): max_pval = 0.00000, |min_val| =  0.714
+        (Sensor_718103 -3): max_pval = 0.00000, |min_val| =  0.130
+        (Sensor_774812 -1): max_pval = 0.00000, |min_val| =  0.129
+        (Sensor_765150 -2): max_pval = 0.00000, |min_val| =  0.116
+        (Sensor_718103 -4): max_pval = 0.00000, |min_val| =  0.114
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.085
+        (Sensor_774890 -2): max_pval = 0.00000, |min_val| =  0.074
+        (Sensor_775636 -2): max_pval = 0.00000, |min_val| =  0.069
+        (Sensor_774812 -4): max_pval = 0.00001, |min_val| =  0.064
+        (Sensor_764572 -3): max_pval = 0.00006, |min_val| =  0.057
+        (Sensor_767912 -1): max_pval = 0.00011, |min_val| =  0.054
+        (Sensor_716769 -3): max_pval = 0.00015, |min_val| =  0.053
+        (Sensor_775859 -2): max_pval = 0.00024, |min_val| =  0.052
+        (Sensor_775636 -5): max_pval = 0.00027, |min_val| =  0.051
+        (Sensor_769965 -4): max_pval = 0.00202, |min_val| =  0.043
+        (Sensor_775859 -1): max_pval = 0.00549, |min_val| =  0.039
+        (Sensor_716769 -1): max_pval = 0.00588, |min_val| =  0.039
+        (Sensor_717070 -3): max_pval = 0.00623, |min_val| =  0.038
+        (Sensor_766601 -6): max_pval = 0.00820, |min_val| =  0.037
+        (Sensor_716095 -1): max_pval = 0.00830, |min_val| =  0.037
+
+    Variable Sensor_766029 has 12 link(s):
+        (Sensor_766029 -1): max_pval = 0.00000, |min_val| =  0.786
+        (Sensor_718103 -3): max_pval = 0.00000, |min_val| =  0.289
+        (Sensor_766029 -2): max_pval = 0.00000, |min_val| =  0.258
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.255
+        (Sensor_717070 -1): max_pval = 0.00000, |min_val| =  0.144
+        (Sensor_775636 -3): max_pval = 0.00000, |min_val| =  0.134
+        (Sensor_716163 -6): max_pval = 0.00000, |min_val| =  0.088
+        (Sensor_716769 -2): max_pval = 0.00000, |min_val| =  0.076
+        (Sensor_766601 -2): max_pval = 0.00003, |min_val| =  0.058
+        (Sensor_767801 -1): max_pval = 0.00005, |min_val| =  0.057
+        (Sensor_717070 -5): max_pval = 0.00099, |min_val| =  0.046
+        (Sensor_768523 -3): max_pval = 0.00164, |min_val| =  0.044
+
+    Variable Sensor_766209 has 14 link(s):
+        (Sensor_766209 -1): max_pval = 0.00000, |min_val| =  0.624
+        (Sensor_718103 -3): max_pval = 0.00000, |min_val| =  0.361
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.198
+        (Sensor_716163 -6): max_pval = 0.00000, |min_val| =  0.132
+        (Sensor_766601 -2): max_pval = 0.00000, |min_val| =  0.090
+        (Sensor_771285 -1): max_pval = 0.00000, |min_val| =  0.087
+        (Sensor_774890 -1): max_pval = 0.00000, |min_val| =  0.070
+        (Sensor_772564 -1): max_pval = 0.00000, |min_val| =  0.068
+        (Sensor_716163 -1): max_pval = 0.00001, |min_val| =  0.062
+        (Sensor_718103 -4): max_pval = 0.00009, |min_val| =  0.055
+        (Sensor_766601 -3): max_pval = 0.00234, |min_val| =  0.043
+        (Sensor_716797 -1): max_pval = 0.00321, |min_val| =  0.041
+        (Sensor_717997 -1): max_pval = 0.00453, |min_val| =  0.040
+        (Sensor_769965 -2): max_pval = 0.00584, |min_val| =  0.039
+
+    Variable Sensor_766601 has 13 link(s):
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.714
+        (Sensor_766601 -2): max_pval = 0.00000, |min_val| =  0.294
+        (Sensor_717070 -4): max_pval = 0.00000, |min_val| =  0.115
+        (Sensor_775636 -6): max_pval = 0.00000, |min_val| =  0.112
+        (Sensor_771285 -6): max_pval = 0.00001, |min_val| =  0.064
+        (Sensor_775859 -5): max_pval = 0.00009, |min_val| =  0.055
+        (Sensor_716163 -6): max_pval = 0.00012, |min_val| =  0.054
+        (Sensor_716163 -1): max_pval = 0.00151, |min_val| =  0.045
+        (Sensor_716163 -2): max_pval = 0.00412, |min_val| =  0.040
+        (Sensor_718103 -1): max_pval = 0.00558, |min_val| =  0.039
+        (Sensor_763791 -4): max_pval = 0.00592, |min_val| =  0.039
+        (Sensor_717070 -1): max_pval = 0.00863, |min_val| =  0.037
+        (Sensor_716657 -5): max_pval = 0.00945, |min_val| =  0.036
+
+    Variable Sensor_766714 has 7 link(s):
+        (Sensor_766714 -1): max_pval = 0.00000, |min_val| =  0.734
+        (Sensor_777733 -1): max_pval = 0.00000, |min_val| =  0.112
+        (Sensor_766714 -6): max_pval = 0.00000, |min_val| =  0.090
+        (Sensor_766732 -2): max_pval = 0.00003, |min_val| =  0.059
+        (Sensor_716650 -1): max_pval = 0.00010, |min_val| =  0.055
+        (Sensor_716685 -3): max_pval = 0.00223, |min_val| =  0.043
+        (Sensor_770243 -2): max_pval = 0.00774, |min_val| =  0.037
+
+    Variable Sensor_766732 has 4 link(s):
+        (Sensor_766732 -1): max_pval = 0.00000, |min_val| =  0.639
+        (Sensor_775365 -1): max_pval = 0.00000, |min_val| =  0.143
+        (Sensor_775365 -2): max_pval = 0.00000, |min_val| =  0.113
+        (Sensor_766732 -3): max_pval = 0.00153, |min_val| =  0.044
+
+    Variable Sensor_766872 has 0 link(s):
+
+    Variable Sensor_767801 has 22 link(s):
+        (Sensor_767801 -1): max_pval = 0.00000, |min_val| =  0.421
+        (Sensor_775365 -1): max_pval = 0.00000, |min_val| =  0.238
+        (Sensor_718103 -3): max_pval = 0.00000, |min_val| =  0.144
+        (Sensor_775365 -2): max_pval = 0.00000, |min_val| =  0.132
+        (Sensor_769965 -4): max_pval = 0.00000, |min_val| =  0.119
+        (Sensor_717070 -6): max_pval = 0.00000, |min_val| =  0.099
+        (Sensor_764572 -6): max_pval = 0.00000, |min_val| =  0.099
+        (Sensor_775636 -2): max_pval = 0.00000, |min_val| =  0.085
+        (Sensor_716163 -6): max_pval = 0.00000, |min_val| =  0.070
+        (Sensor_766601 -4): max_pval = 0.00002, |min_val| =  0.059
+        (Sensor_768523 -6): max_pval = 0.00007, |min_val| =  0.056
+        (Sensor_775859 -1): max_pval = 0.00031, |min_val| =  0.051
+        (Sensor_716650 -4): max_pval = 0.00059, |min_val| =  0.048
+        (Sensor_767801 -6): max_pval = 0.00061, |min_val| =  0.048
+        (Sensor_716657 -6): max_pval = 0.00064, |min_val| =  0.048
+        (Sensor_718103 -1): max_pval = 0.00088, |min_val| =  0.047
+        (Sensor_717070 -3): max_pval = 0.00181, |min_val| =  0.044
+        (Sensor_774890 -2): max_pval = 0.00283, |min_val| =  0.042
+        (Sensor_771706 -6): max_pval = 0.00353, |min_val| =  0.041
+        (Sensor_774890 -1): max_pval = 0.00620, |min_val| =  0.038
+        (Sensor_766714 -6): max_pval = 0.00677, |min_val| =  0.038
+        (Sensor_716095 -5): max_pval = 0.00716, |min_val| =  0.038
+
+    Variable Sensor_767912 has 13 link(s):
+        (Sensor_767912 -1): max_pval = 0.00000, |min_val| =  0.574
+        (Sensor_718103 -4): max_pval = 0.00000, |min_val| =  0.181
+        (Sensor_717548 -1): max_pval = 0.00000, |min_val| =  0.160
+        (Sensor_718103 -1): max_pval = 0.00000, |min_val| =  0.097
+        (Sensor_716818 -1): max_pval = 0.00000, |min_val| =  0.071
+        (Sensor_716303 -1): max_pval = 0.00000, |min_val| =  0.070
+        (Sensor_717070 -5): max_pval = 0.00000, |min_val| =  0.065
+        (Sensor_717070 -6): max_pval = 0.00014, |min_val| =  0.054
+        (Sensor_716095 -2): max_pval = 0.00019, |min_val| =  0.052
+        (Sensor_775636 -5): max_pval = 0.00425, |min_val| =  0.040
+        (Sensor_775636 -1): max_pval = 0.00464, |min_val| =  0.040
+        (Sensor_774890 -2): max_pval = 0.00484, |min_val| =  0.040
+        (Sensor_775859 -2): max_pval = 0.00719, |min_val| =  0.038
+
+    Variable Sensor_768013 has 20 link(s):
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.470
+        (Sensor_771285 -1): max_pval = 0.00000, |min_val| =  0.131
+        (Sensor_774842 -1): max_pval = 0.00000, |min_val| =  0.114
+        (Sensor_774842 -3): max_pval = 0.00000, |min_val| =  0.104
+        (Sensor_775636 -1): max_pval = 0.00000, |min_val| =  0.094
+        (Sensor_718103 -4): max_pval = 0.00000, |min_val| =  0.081
+        (Sensor_767801 -2): max_pval = 0.00000, |min_val| =  0.072
+        (Sensor_717997 -3): max_pval = 0.00000, |min_val| =  0.067
+        (Sensor_767801 -6): max_pval = 0.00001, |min_val| =  0.064
+        (Sensor_718103 -3): max_pval = 0.00001, |min_val| =  0.064
+        (Sensor_717376 -1): max_pval = 0.00002, |min_val| =  0.061
+        (Sensor_716797 -3): max_pval = 0.00019, |min_val| =  0.052
+        (Sensor_770076 -1): max_pval = 0.00030, |min_val| =  0.051
+        (Sensor_771421 -3): max_pval = 0.00066, |min_val| =  0.048
+        (Sensor_775859 -6): max_pval = 0.00184, |min_val| =  0.044
+        (Sensor_775365 -2): max_pval = 0.00249, |min_val| =  0.043
+        (Sensor_770243 -6): max_pval = 0.00578, |min_val| =  0.039
+        (Sensor_716657 -1): max_pval = 0.00613, |min_val| =  0.039
+        (Sensor_766209 -1): max_pval = 0.00739, |min_val| =  0.038
+        (Sensor_716769 -3): max_pval = 0.00826, |min_val| =  0.037
+
+    Variable Sensor_768222 has 17 link(s):
+        (Sensor_768222 -1): max_pval = 0.00000, |min_val| =  0.680
+        (Sensor_768222 -2): max_pval = 0.00000, |min_val| =  0.411
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.235
+        (Sensor_718103 -2): max_pval = 0.00000, |min_val| =  0.214
+        (Sensor_716163 -6): max_pval = 0.00000, |min_val| =  0.092
+        (Sensor_767801 -2): max_pval = 0.00000, |min_val| =  0.069
+        (Sensor_771285 -2): max_pval = 0.00000, |min_val| =  0.067
+        (Sensor_770076 -2): max_pval = 0.00001, |min_val| =  0.061
+        (Sensor_716650 -1): max_pval = 0.00002, |min_val| =  0.060
+        (Sensor_717997 -3): max_pval = 0.00025, |min_val| =  0.051
+        (Sensor_716508 -2): max_pval = 0.00026, |min_val| =  0.051
+        (Sensor_768523 -4): max_pval = 0.00052, |min_val| =  0.049
+        (Sensor_716657 -1): max_pval = 0.00098, |min_val| =  0.046
+        (Sensor_765150 -3): max_pval = 0.00114, |min_val| =  0.046
+        (Sensor_716095 -1): max_pval = 0.00122, |min_val| =  0.045
+        (Sensor_716163 -1): max_pval = 0.00171, |min_val| =  0.044
+        (Sensor_775552 -1): max_pval = 0.00846, |min_val| =  0.037
+
+    Variable Sensor_768523 has 15 link(s):
+        (Sensor_768523 -1): max_pval = 0.00000, |min_val| =  0.685
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.322
+        (Sensor_768523 -2): max_pval = 0.00000, |min_val| =  0.117
+        (Sensor_766601 -2): max_pval = 0.00000, |min_val| =  0.116
+        (Sensor_776066 -1): max_pval = 0.00000, |min_val| =  0.079
+        (Sensor_775636 -2): max_pval = 0.00000, |min_val| =  0.076
+        (Sensor_774729 -1): max_pval = 0.00030, |min_val| =  0.051
+        (Sensor_772193 -1): max_pval = 0.00083, |min_val| =  0.047
+        (Sensor_770076 -4): max_pval = 0.00098, |min_val| =  0.046
+        (Sensor_767912 -6): max_pval = 0.00170, |min_val| =  0.044
+        (Sensor_774842 -4): max_pval = 0.00345, |min_val| =  0.041
+        (Sensor_767912 -3): max_pval = 0.00557, |min_val| =  0.039
+        (Sensor_768523 -5): max_pval = 0.00648, |min_val| =  0.038
+        (Sensor_775859 -6): max_pval = 0.00696, |min_val| =  0.038
+        (Sensor_717997 -1): max_pval = 0.00735, |min_val| =  0.038
+
+    Variable Sensor_768923 has 0 link(s):
+
+    Variable Sensor_768969 has 21 link(s):
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.261
+        (Sensor_718103 -1): max_pval = 0.00000, |min_val| =  0.243
+        (Sensor_718103 -3): max_pval = 0.00000, |min_val| =  0.185
+        (Sensor_771285 -1): max_pval = 0.00000, |min_val| =  0.183
+        (Sensor_775636 -1): max_pval = 0.00000, |min_val| =  0.123
+        (Sensor_716163 -1): max_pval = 0.00000, |min_val| =  0.121
+        (Sensor_774890 -1): max_pval = 0.00000, |min_val| =  0.095
+        (Sensor_717070 -5): max_pval = 0.00000, |min_val| =  0.083
+        (Sensor_716163 -6): max_pval = 0.00000, |min_val| =  0.083
+        (Sensor_717070 -6): max_pval = 0.00000, |min_val| =  0.079
+        (Sensor_768523 -4): max_pval = 0.00000, |min_val| =  0.065
+        (Sensor_716187 -1): max_pval = 0.00001, |min_val| =  0.064
+        (Sensor_771421 -4): max_pval = 0.00005, |min_val| =  0.057
+        (Sensor_770076 -5): max_pval = 0.00088, |min_val| =  0.047
+        (Sensor_771285 -6): max_pval = 0.00377, |min_val| =  0.041
+        (Sensor_774842 -2): max_pval = 0.00543, |min_val| =  0.039
+        (Sensor_717997 -3): max_pval = 0.00628, |min_val| =  0.038
+        (Sensor_716657 -1): max_pval = 0.00640, |min_val| =  0.038
+        (Sensor_716163 -3): max_pval = 0.00657, |min_val| =  0.038
+        (Sensor_765150 -4): max_pval = 0.00816, |min_val| =  0.037
+        (Sensor_760756 -2): max_pval = 0.00848, |min_val| =  0.037
+
+    Variable Sensor_769819 has 15 link(s):
+        (Sensor_769819 -1): max_pval = 0.00000, |min_val| =  0.757
+        (Sensor_769819 -2): max_pval = 0.00000, |min_val| =  0.185
+        (Sensor_774812 -1): max_pval = 0.00000, |min_val| =  0.114
+        (Sensor_718103 -4): max_pval = 0.00000, |min_val| =  0.107
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.105
+        (Sensor_718103 -1): max_pval = 0.00000, |min_val| =  0.073
+        (Sensor_769819 -6): max_pval = 0.00001, |min_val| =  0.062
+        (Sensor_775636 -4): max_pval = 0.00011, |min_val| =  0.054
+        (Sensor_766601 -3): max_pval = 0.00024, |min_val| =  0.052
+        (Sensor_718103 -3): max_pval = 0.00030, |min_val| =  0.051
+        (Sensor_774842 -4): max_pval = 0.00086, |min_val| =  0.047
+        (Sensor_775859 -1): max_pval = 0.00188, |min_val| =  0.044
+        (Sensor_716187 -1): max_pval = 0.00211, |min_val| =  0.043
+        (Sensor_716163 -6): max_pval = 0.00211, |min_val| =  0.043
+        (Sensor_769965 -3): max_pval = 0.00367, |min_val| =  0.041
+
+    Variable Sensor_769965 has 15 link(s):
+        (Sensor_769965 -1): max_pval = 0.00000, |min_val| =  0.529
+        (Sensor_769965 -2): max_pval = 0.00000, |min_val| =  0.310
+        (Sensor_760756 -2): max_pval = 0.00000, |min_val| =  0.122
+        (Sensor_717070 -6): max_pval = 0.00000, |min_val| =  0.121
+        (Sensor_760756 -1): max_pval = 0.00000, |min_val| =  0.120
+        (Sensor_770243 -4): max_pval = 0.00000, |min_val| =  0.090
+        (Sensor_718103 -3): max_pval = 0.00000, |min_val| =  0.085
+        (Sensor_717070 -1): max_pval = 0.00000, |min_val| =  0.075
+        (Sensor_769819 -6): max_pval = 0.00000, |min_val| =  0.073
+        (Sensor_771285 -1): max_pval = 0.00000, |min_val| =  0.070
+        (Sensor_770076 -1): max_pval = 0.00004, |min_val| =  0.058
+        (Sensor_718103 -4): max_pval = 0.00014, |min_val| =  0.054
+        (Sensor_716163 -1): max_pval = 0.00085, |min_val| =  0.047
+        (Sensor_765150 -6): max_pval = 0.00420, |min_val| =  0.040
+        (Sensor_769819 -5): max_pval = 0.00860, |min_val| =  0.037
+
+    Variable Sensor_770076 has 13 link(s):
+        (Sensor_770076 -1): max_pval = 0.00000, |min_val| =  0.656
+        (Sensor_775636 -3): max_pval = 0.00000, |min_val| =  0.154
+        (Sensor_718103 -3): max_pval = 0.00000, |min_val| =  0.151
+        (Sensor_766601 -4): max_pval = 0.00000, |min_val| =  0.150
+        (Sensor_770076 -2): max_pval = 0.00000, |min_val| =  0.097
+        (Sensor_774812 -1): max_pval = 0.00000, |min_val| =  0.092
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.079
+        (Sensor_718103 -1): max_pval = 0.00000, |min_val| =  0.077
+        (Sensor_716769 -3): max_pval = 0.00008, |min_val| =  0.055
+        (Sensor_774812 -3): max_pval = 0.00038, |min_val| =  0.050
+        (Sensor_770076 -6): max_pval = 0.00067, |min_val| =  0.048
+        (Sensor_769965 -3): max_pval = 0.00087, |min_val| =  0.047
+        (Sensor_774842 -4): max_pval = 0.00349, |min_val| =  0.041
+
+    Variable Sensor_770243 has 19 link(s):
+        (Sensor_770243 -1): max_pval = 0.00000, |min_val| =  0.756
+        (Sensor_770243 -2): max_pval = 0.00000, |min_val| =  0.187
+        (Sensor_716769 -2): max_pval = 0.00000, |min_val| =  0.107
+        (Sensor_718103 -3): max_pval = 0.00000, |min_val| =  0.097
+        (Sensor_717070 -6): max_pval = 0.00000, |min_val| =  0.095
+        (Sensor_717070 -2): max_pval = 0.00000, |min_val| =  0.080
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.076
+        (Sensor_716657 -6): max_pval = 0.00002, |min_val| =  0.059
+        (Sensor_770243 -4): max_pval = 0.00006, |min_val| =  0.056
+        (Sensor_716163 -6): max_pval = 0.00025, |min_val| =  0.051
+        (Sensor_764572 -6): max_pval = 0.00028, |min_val| =  0.051
+        (Sensor_766601 -6): max_pval = 0.00095, |min_val| =  0.046
+        (Sensor_716187 -5): max_pval = 0.00170, |min_val| =  0.044
+        (Sensor_771285 -1): max_pval = 0.00388, |min_val| =  0.041
+        (Sensor_717070 -1): max_pval = 0.00428, |min_val| =  0.040
+        (Sensor_717070 -4): max_pval = 0.00471, |min_val| =  0.040
+        (Sensor_716095 -5): max_pval = 0.00541, |min_val| =  0.039
+        (Sensor_716095 -4): max_pval = 0.00739, |min_val| =  0.038
+        (Sensor_769965 -2): max_pval = 0.00912, |min_val| =  0.037
+
+    Variable Sensor_770598 has 20 link(s):
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.468
+        (Sensor_774842 -3): max_pval = 0.00000, |min_val| =  0.142
+        (Sensor_771285 -1): max_pval = 0.00000, |min_val| =  0.132
+        (Sensor_774842 -1): max_pval = 0.00000, |min_val| =  0.119
+        (Sensor_718103 -4): max_pval = 0.00000, |min_val| =  0.080
+        (Sensor_775636 -1): max_pval = 0.00000, |min_val| =  0.078
+        (Sensor_767801 -2): max_pval = 0.00000, |min_val| =  0.072
+        (Sensor_717376 -1): max_pval = 0.00000, |min_val| =  0.072
+        (Sensor_717997 -3): max_pval = 0.00000, |min_val| =  0.067
+        (Sensor_716657 -1): max_pval = 0.00000, |min_val| =  0.066
+        (Sensor_767801 -6): max_pval = 0.00001, |min_val| =  0.063
+        (Sensor_718103 -3): max_pval = 0.00001, |min_val| =  0.062
+        (Sensor_771421 -3): max_pval = 0.00013, |min_val| =  0.054
+        (Sensor_716797 -3): max_pval = 0.00021, |min_val| =  0.052
+        (Sensor_770076 -1): max_pval = 0.00028, |min_val| =  0.051
+        (Sensor_771706 -3): max_pval = 0.00144, |min_val| =  0.045
+        (Sensor_716769 -3): max_pval = 0.00273, |min_val| =  0.042
+        (Sensor_766209 -1): max_pval = 0.00696, |min_val| =  0.038
+        (Sensor_717997 -5): max_pval = 0.00928, |min_val| =  0.037
+        (Sensor_769965 -6): max_pval = 0.00967, |min_val| =  0.036
+
+    Variable Sensor_771285 has 18 link(s):
+        (Sensor_771285 -1): max_pval = 0.00000, |min_val| =  0.578
+        (Sensor_771285 -2): max_pval = 0.00000, |min_val| =  0.185
+        (Sensor_716163 -6): max_pval = 0.00000, |min_val| =  0.137
+        (Sensor_769965 -3): max_pval = 0.00000, |min_val| =  0.131
+        (Sensor_718103 -4): max_pval = 0.00000, |min_val| =  0.105
+        (Sensor_717070 -1): max_pval = 0.00005, |min_val| =  0.057
+        (Sensor_770076 -4): max_pval = 0.00006, |min_val| =  0.056
+        (Sensor_771421 -3): max_pval = 0.00015, |min_val| =  0.053
+        (Sensor_774812 -1): max_pval = 0.00030, |min_val| =  0.051
+        (Sensor_767801 -1): max_pval = 0.00063, |min_val| =  0.048
+        (Sensor_772564 -1): max_pval = 0.00100, |min_val| =  0.046
+        (Sensor_764572 -6): max_pval = 0.00173, |min_val| =  0.044
+        (Sensor_770243 -3): max_pval = 0.00174, |min_val| =  0.044
+        (Sensor_770243 -4): max_pval = 0.00178, |min_val| =  0.044
+        (Sensor_775859 -1): max_pval = 0.00391, |min_val| =  0.041
+        (Sensor_716685 -6): max_pval = 0.00679, |min_val| =  0.038
+        (Sensor_716113 -6): max_pval = 0.00948, |min_val| =  0.036
+        (Sensor_774890 -5): max_pval = 0.00984, |min_val| =  0.036
+
+    Variable Sensor_771421 has 18 link(s):
+        (Sensor_771421 -1): max_pval = 0.00000, |min_val| =  0.656
+        (Sensor_718103 -4): max_pval = 0.00000, |min_val| =  0.259
+        (Sensor_717070 -6): max_pval = 0.00000, |min_val| =  0.191
+        (Sensor_771421 -2): max_pval = 0.00000, |min_val| =  0.126
+        (Sensor_716095 -4): max_pval = 0.00000, |min_val| =  0.095
+        (Sensor_764572 -6): max_pval = 0.00000, |min_val| =  0.092
+        (Sensor_774842 -1): max_pval = 0.00000, |min_val| =  0.081
+        (Sensor_770076 -2): max_pval = 0.00000, |min_val| =  0.077
+        (Sensor_775636 -4): max_pval = 0.00000, |min_val| =  0.074
+        (Sensor_716769 -3): max_pval = 0.00002, |min_val| =  0.060
+        (Sensor_772564 -1): max_pval = 0.00050, |min_val| =  0.049
+        (Sensor_775636 -3): max_pval = 0.00189, |min_val| =  0.044
+        (Sensor_716163 -6): max_pval = 0.00205, |min_val| =  0.043
+        (Sensor_717548 -1): max_pval = 0.00339, |min_val| =  0.041
+        (Sensor_775552 -4): max_pval = 0.00355, |min_val| =  0.041
+        (Sensor_716657 -1): max_pval = 0.00399, |min_val| =  0.040
+        (Sensor_716685 -1): max_pval = 0.00485, |min_val| =  0.040
+        (Sensor_769965 -3): max_pval = 0.00744, |min_val| =  0.038
+
+    Variable Sensor_771706 has 18 link(s):
+        (Sensor_771706 -1): max_pval = 0.00000, |min_val| =  0.606
+        (Sensor_718103 -3): max_pval = 0.00000, |min_val| =  0.288
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.239
+        (Sensor_717070 -1): max_pval = 0.00000, |min_val| =  0.148
+        (Sensor_716163 -6): max_pval = 0.00000, |min_val| =  0.119
+        (Sensor_774812 -1): max_pval = 0.00000, |min_val| =  0.110
+        (Sensor_767801 -1): max_pval = 0.00000, |min_val| =  0.079
+        (Sensor_774842 -3): max_pval = 0.00000, |min_val| =  0.064
+        (Sensor_775636 -4): max_pval = 0.00011, |min_val| =  0.054
+        (Sensor_775859 -2): max_pval = 0.00034, |min_val| =  0.050
+        (Sensor_775365 -3): max_pval = 0.00066, |min_val| =  0.048
+        (Sensor_716769 -3): max_pval = 0.00227, |min_val| =  0.043
+        (Sensor_717070 -4): max_pval = 0.00379, |min_val| =  0.041
+        (Sensor_774812 -2): max_pval = 0.00459, |min_val| =  0.040
+        (Sensor_716095 -5): max_pval = 0.00547, |min_val| =  0.039
+        (Sensor_764572 -6): max_pval = 0.00695, |min_val| =  0.038
+        (Sensor_766601 -2): max_pval = 0.00817, |min_val| =  0.037
+        (Sensor_718180 -1): max_pval = 0.00867, |min_val| =  0.037
+
+    Variable Sensor_771778 has 0 link(s):
+
+    Variable Sensor_772055 has 20 link(s):
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.485
+        (Sensor_771285 -1): max_pval = 0.00000, |min_val| =  0.130
+        (Sensor_774842 -3): max_pval = 0.00000, |min_val| =  0.121
+        (Sensor_716163 -6): max_pval = 0.00000, |min_val| =  0.099
+        (Sensor_775636 -1): max_pval = 0.00000, |min_val| =  0.091
+        (Sensor_774842 -1): max_pval = 0.00000, |min_val| =  0.086
+        (Sensor_718103 -4): max_pval = 0.00000, |min_val| =  0.081
+        (Sensor_767801 -2): max_pval = 0.00000, |min_val| =  0.073
+        (Sensor_717997 -3): max_pval = 0.00000, |min_val| =  0.067
+        (Sensor_718103 -3): max_pval = 0.00002, |min_val| =  0.061
+        (Sensor_775636 -5): max_pval = 0.00004, |min_val| =  0.057
+        (Sensor_716797 -3): max_pval = 0.00017, |min_val| =  0.053
+        (Sensor_716657 -1): max_pval = 0.00026, |min_val| =  0.051
+        (Sensor_717376 -1): max_pval = 0.00043, |min_val| =  0.049
+        (Sensor_771421 -3): max_pval = 0.00052, |min_val| =  0.049
+        (Sensor_716163 -2): max_pval = 0.00223, |min_val| =  0.043
+        (Sensor_775365 -2): max_pval = 0.00252, |min_val| =  0.042
+        (Sensor_776066 -1): max_pval = 0.00430, |min_val| =  0.040
+        (Sensor_766209 -1): max_pval = 0.00666, |min_val| =  0.038
+        (Sensor_770243 -6): max_pval = 0.00842, |min_val| =  0.037
+
+    Variable Sensor_772193 has 11 link(s):
+        (Sensor_772193 -1): max_pval = 0.00000, |min_val| =  0.769
+        (Sensor_718103 -3): max_pval = 0.00000, |min_val| =  0.277
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.222
+        (Sensor_772193 -2): max_pval = 0.00000, |min_val| =  0.215
+        (Sensor_716163 -6): max_pval = 0.00000, |min_val| =  0.147
+        (Sensor_775636 -6): max_pval = 0.00000, |min_val| =  0.085
+        (Sensor_716163 -1): max_pval = 0.00000, |min_val| =  0.066
+        (Sensor_717070 -1): max_pval = 0.00002, |min_val| =  0.060
+        (Sensor_766601 -3): max_pval = 0.00010, |min_val| =  0.055
+        (Sensor_716095 -4): max_pval = 0.00053, |min_val| =  0.049
+        (Sensor_771285 -6): max_pval = 0.00066, |min_val| =  0.048
+
+    Variable Sensor_772354 has 15 link(s):
+        (Sensor_772354 -1): max_pval = 0.00000, |min_val| =  0.765
+        (Sensor_772354 -2): max_pval = 0.00000, |min_val| =  0.225
+        (Sensor_771285 -6): max_pval = 0.00000, |min_val| =  0.123
+        (Sensor_718103 -2): max_pval = 0.00000, |min_val| =  0.113
+        (Sensor_771421 -6): max_pval = 0.00000, |min_val| =  0.065
+        (Sensor_716163 -6): max_pval = 0.00001, |min_val| =  0.064
+        (Sensor_717070 -1): max_pval = 0.00001, |min_val| =  0.063
+        (Sensor_717997 -4): max_pval = 0.00005, |min_val| =  0.057
+        (Sensor_766601 -1): max_pval = 0.00012, |min_val| =  0.054
+        (Sensor_718103 -4): max_pval = 0.00034, |min_val| =  0.050
+        (Sensor_716163 -1): max_pval = 0.00034, |min_val| =  0.050
+        (Sensor_760756 -6): max_pval = 0.00074, |min_val| =  0.047
+        (Sensor_771706 -6): max_pval = 0.00132, |min_val| =  0.045
+        (Sensor_768222 -6): max_pval = 0.00333, |min_val| =  0.041
+        (Sensor_717548 -4): max_pval = 0.00335, |min_val| =  0.041
+
+    Variable Sensor_772564 has 13 link(s):
+        (Sensor_772564 -1): max_pval = 0.00000, |min_val| =  0.700
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.295
+        (Sensor_718103 -3): max_pval = 0.00000, |min_val| =  0.264
+        (Sensor_772564 -2): max_pval = 0.00000, |min_val| =  0.199
+        (Sensor_771285 -1): max_pval = 0.00000, |min_val| =  0.097
+        (Sensor_766601 -2): max_pval = 0.00000, |min_val| =  0.081
+        (Sensor_775365 -1): max_pval = 0.00000, |min_val| =  0.064
+        (Sensor_772193 -1): max_pval = 0.00002, |min_val| =  0.061
+        (Sensor_769965 -1): max_pval = 0.00008, |min_val| =  0.055
+        (Sensor_766209 -1): max_pval = 0.00122, |min_val| =  0.045
+        (Sensor_769965 -6): max_pval = 0.00160, |min_val| =  0.044
+        (Sensor_776066 -2): max_pval = 0.00523, |min_val| =  0.039
+        (Sensor_771285 -6): max_pval = 0.00976, |min_val| =  0.036
+
+    Variable Sensor_773193 has 11 link(s):
+        (Sensor_773193 -1): max_pval = 0.00000, |min_val| =  0.748
+        (Sensor_773193 -2): max_pval = 0.00000, |min_val| =  0.195
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.153
+        (Sensor_718103 -3): max_pval = 0.00000, |min_val| =  0.152
+        (Sensor_769965 -6): max_pval = 0.00000, |min_val| =  0.091
+        (Sensor_768523 -3): max_pval = 0.00004, |min_val| =  0.058
+        (Sensor_767801 -1): max_pval = 0.00004, |min_val| =  0.058
+        (Sensor_767801 -2): max_pval = 0.00258, |min_val| =  0.042
+        (Sensor_760756 -4): max_pval = 0.00324, |min_val| =  0.041
+        (Sensor_773193 -3): max_pval = 0.00496, |min_val| =  0.039
+        (Sensor_775365 -2): max_pval = 0.00834, |min_val| =  0.037
+
+    Variable Sensor_773281 has 21 link(s):
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.260
+        (Sensor_718103 -1): max_pval = 0.00000, |min_val| =  0.243
+        (Sensor_718103 -3): max_pval = 0.00000, |min_val| =  0.185
+        (Sensor_771285 -1): max_pval = 0.00000, |min_val| =  0.183
+        (Sensor_775636 -1): max_pval = 0.00000, |min_val| =  0.124
+        (Sensor_716163 -1): max_pval = 0.00000, |min_val| =  0.121
+        (Sensor_774890 -1): max_pval = 0.00000, |min_val| =  0.096
+        (Sensor_716163 -6): max_pval = 0.00000, |min_val| =  0.083
+        (Sensor_717070 -5): max_pval = 0.00000, |min_val| =  0.083
+        (Sensor_717070 -6): max_pval = 0.00000, |min_val| =  0.081
+        (Sensor_768523 -4): max_pval = 0.00000, |min_val| =  0.065
+        (Sensor_716187 -1): max_pval = 0.00001, |min_val| =  0.064
+        (Sensor_771421 -4): max_pval = 0.00006, |min_val| =  0.056
+        (Sensor_770076 -5): max_pval = 0.00100, |min_val| =  0.046
+        (Sensor_771285 -6): max_pval = 0.00419, |min_val| =  0.040
+        (Sensor_770076 -1): max_pval = 0.00438, |min_val| =  0.040
+        (Sensor_774842 -2): max_pval = 0.00547, |min_val| =  0.039
+        (Sensor_716657 -1): max_pval = 0.00620, |min_val| =  0.038
+        (Sensor_717997 -3): max_pval = 0.00631, |min_val| =  0.038
+        (Sensor_760756 -2): max_pval = 0.00651, |min_val| =  0.038
+        (Sensor_772354 -6): max_pval = 0.00851, |min_val| =  0.037
+
+    Variable Sensor_773798 has 12 link(s):
+        (Sensor_773798 -1): max_pval = 0.00000, |min_val| =  0.720
+        (Sensor_718103 -3): max_pval = 0.00000, |min_val| =  0.128
+        (Sensor_771285 -1): max_pval = 0.00000, |min_val| =  0.085
+        (Sensor_718103 -4): max_pval = 0.00001, |min_val| =  0.064
+        (Sensor_773798 -4): max_pval = 0.00022, |min_val| =  0.052
+        (Sensor_768523 -5): max_pval = 0.00028, |min_val| =  0.051
+        (Sensor_716163 -6): max_pval = 0.00029, |min_val| =  0.051
+        (Sensor_716095 -4): max_pval = 0.00043, |min_val| =  0.049
+        (Sensor_771285 -2): max_pval = 0.00148, |min_val| =  0.045
+        (Sensor_716769 -2): max_pval = 0.00410, |min_val| =  0.040
+        (Sensor_775859 -1): max_pval = 0.00908, |min_val| =  0.037
+        (Sensor_771285 -6): max_pval = 0.00967, |min_val| =  0.036
+
+    Variable Sensor_774235 has 20 link(s):
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.468
+        (Sensor_774842 -3): max_pval = 0.00000, |min_val| =  0.142
+        (Sensor_771285 -1): max_pval = 0.00000, |min_val| =  0.132
+        (Sensor_774842 -1): max_pval = 0.00000, |min_val| =  0.119
+        (Sensor_718103 -4): max_pval = 0.00000, |min_val| =  0.080
+        (Sensor_775636 -1): max_pval = 0.00000, |min_val| =  0.078
+        (Sensor_767801 -2): max_pval = 0.00000, |min_val| =  0.072
+        (Sensor_717376 -1): max_pval = 0.00000, |min_val| =  0.072
+        (Sensor_717997 -3): max_pval = 0.00000, |min_val| =  0.067
+        (Sensor_716657 -1): max_pval = 0.00000, |min_val| =  0.066
+        (Sensor_767801 -6): max_pval = 0.00001, |min_val| =  0.063
+        (Sensor_718103 -3): max_pval = 0.00001, |min_val| =  0.062
+        (Sensor_771421 -3): max_pval = 0.00013, |min_val| =  0.054
+        (Sensor_716797 -3): max_pval = 0.00021, |min_val| =  0.052
+        (Sensor_770076 -1): max_pval = 0.00028, |min_val| =  0.051
+        (Sensor_771706 -3): max_pval = 0.00144, |min_val| =  0.045
+        (Sensor_716769 -3): max_pval = 0.00273, |min_val| =  0.042
+        (Sensor_766209 -1): max_pval = 0.00696, |min_val| =  0.038
+        (Sensor_717997 -5): max_pval = 0.00928, |min_val| =  0.037
+        (Sensor_769965 -6): max_pval = 0.00967, |min_val| =  0.036
+
+    Variable Sensor_774641 has 17 link(s):
+        (Sensor_774641 -1): max_pval = 0.00000, |min_val| =  0.595
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.284
+        (Sensor_774641 -2): max_pval = 0.00000, |min_val| =  0.199
+        (Sensor_771285 -1): max_pval = 0.00000, |min_val| =  0.135
+        (Sensor_718103 -3): max_pval = 0.00000, |min_val| =  0.119
+        (Sensor_766601 -3): max_pval = 0.00000, |min_val| =  0.113
+        (Sensor_716163 -1): max_pval = 0.00000, |min_val| =  0.100
+        (Sensor_775636 -6): max_pval = 0.00000, |min_val| =  0.091
+        (Sensor_716163 -6): max_pval = 0.00000, |min_val| =  0.078
+        (Sensor_771285 -6): max_pval = 0.00000, |min_val| =  0.078
+        (Sensor_766601 -2): max_pval = 0.00000, |min_val| =  0.074
+        (Sensor_717070 -5): max_pval = 0.00000, |min_val| =  0.065
+        (Sensor_774641 -3): max_pval = 0.00004, |min_val| =  0.058
+        (Sensor_770598 -2): max_pval = 0.00524, |min_val| =  0.039
+        (Sensor_774235 -2): max_pval = 0.00524, |min_val| =  0.039
+        (Sensor_770076 -2): max_pval = 0.00720, |min_val| =  0.038
+        (Sensor_774890 -2): max_pval = 0.00843, |min_val| =  0.037
+
+    Variable Sensor_774729 has 16 link(s):
+        (Sensor_774729 -1): max_pval = 0.00000, |min_val| =  0.748
+        (Sensor_774729 -2): max_pval = 0.00000, |min_val| =  0.229
+        (Sensor_774842 -1): max_pval = 0.00000, |min_val| =  0.096
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.090
+        (Sensor_716187 -1): max_pval = 0.00000, |min_val| =  0.089
+        (Sensor_716769 -2): max_pval = 0.00000, |min_val| =  0.082
+        (Sensor_775636 -2): max_pval = 0.00000, |min_val| =  0.073
+        (Sensor_716163 -6): max_pval = 0.00000, |min_val| =  0.068
+        (Sensor_766601 -3): max_pval = 0.00001, |min_val| =  0.063
+        (Sensor_718103 -1): max_pval = 0.00001, |min_val| =  0.062
+        (Sensor_772564 -1): max_pval = 0.00001, |min_val| =  0.061
+        (Sensor_716187 -2): max_pval = 0.00006, |min_val| =  0.056
+        (Sensor_774890 -1): max_pval = 0.00010, |min_val| =  0.054
+        (Sensor_769965 -6): max_pval = 0.00021, |min_val| =  0.052
+        (Sensor_771285 -6): max_pval = 0.00049, |min_val| =  0.049
+        (Sensor_767801 -1): max_pval = 0.00149, |min_val| =  0.045
+
+    Variable Sensor_774812 has 14 link(s):
+        (Sensor_774812 -1): max_pval = 0.00000, |min_val| =  0.734
+        (Sensor_718103 -2): max_pval = 0.00000, |min_val| =  0.272
+        (Sensor_774812 -2): max_pval = 0.00000, |min_val| =  0.144
+        (Sensor_716163 -6): max_pval = 0.00000, |min_val| =  0.113
+        (Sensor_772564 -2): max_pval = 0.00000, |min_val| =  0.080
+        (Sensor_767801 -1): max_pval = 0.00000, |min_val| =  0.070
+        (Sensor_775365 -1): max_pval = 0.00001, |min_val| =  0.061
+        (Sensor_717997 -1): max_pval = 0.00002, |min_val| =  0.059
+        (Sensor_717548 -6): max_pval = 0.00005, |min_val| =  0.057
+        (Sensor_766209 -1): max_pval = 0.00076, |min_val| =  0.047
+        (Sensor_717070 -4): max_pval = 0.00145, |min_val| =  0.045
+        (Sensor_717997 -2): max_pval = 0.00152, |min_val| =  0.045
+        (Sensor_774812 -6): max_pval = 0.00194, |min_val| =  0.044
+        (Sensor_716657 -6): max_pval = 0.00377, |min_val| =  0.041
+
+    Variable Sensor_774842 has 17 link(s):
+        (Sensor_774842 -1): max_pval = 0.00000, |min_val| =  0.665
+        (Sensor_718103 -3): max_pval = 0.00000, |min_val| =  0.203
+        (Sensor_716163 -6): max_pval = 0.00000, |min_val| =  0.181
+        (Sensor_774842 -2): max_pval = 0.00000, |min_val| =  0.177
+        (Sensor_774812 -1): max_pval = 0.00000, |min_val| =  0.134
+        (Sensor_764572 -6): max_pval = 0.00000, |min_val| =  0.091
+        (Sensor_717070 -1): max_pval = 0.00000, |min_val| =  0.079
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.072
+        (Sensor_716769 -3): max_pval = 0.00045, |min_val| =  0.049
+        (Sensor_772564 -3): max_pval = 0.00099, |min_val| =  0.046
+        (Sensor_716095 -5): max_pval = 0.00123, |min_val| =  0.045
+        (Sensor_771421 -1): max_pval = 0.00124, |min_val| =  0.045
+        (Sensor_775636 -2): max_pval = 0.00370, |min_val| =  0.041
+        (Sensor_716657 -6): max_pval = 0.00551, |min_val| =  0.039
+        (Sensor_764572 -5): max_pval = 0.00618, |min_val| =  0.038
+        (Sensor_716163 -2): max_pval = 0.00624, |min_val| =  0.038
+        (Sensor_718180 -1): max_pval = 0.00636, |min_val| =  0.038
+
+    Variable Sensor_774890 has 20 link(s):
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.489
+        (Sensor_716163 -6): max_pval = 0.00000, |min_val| =  0.191
+        (Sensor_771285 -1): max_pval = 0.00000, |min_val| =  0.133
+        (Sensor_774842 -3): max_pval = 0.00000, |min_val| =  0.096
+        (Sensor_716163 -1): max_pval = 0.00000, |min_val| =  0.095
+        (Sensor_774842 -1): max_pval = 0.00000, |min_val| =  0.087
+        (Sensor_718103 -4): max_pval = 0.00000, |min_val| =  0.084
+        (Sensor_717376 -1): max_pval = 0.00000, |min_val| =  0.075
+        (Sensor_760756 -4): max_pval = 0.00000, |min_val| =  0.069
+        (Sensor_768523 -3): max_pval = 0.00001, |min_val| =  0.062
+        (Sensor_716095 -3): max_pval = 0.00003, |min_val| =  0.058
+        (Sensor_771421 -2): max_pval = 0.00016, |min_val| =  0.053
+        (Sensor_772564 -1): max_pval = 0.00017, |min_val| =  0.053
+        (Sensor_776066 -1): max_pval = 0.00051, |min_val| =  0.049
+        (Sensor_717997 -4): max_pval = 0.00078, |min_val| =  0.047
+        (Sensor_716657 -1): max_pval = 0.00101, |min_val| =  0.046
+        (Sensor_770076 -1): max_pval = 0.00163, |min_val| =  0.044
+        (Sensor_716685 -6): max_pval = 0.00189, |min_val| =  0.044
+        (Sensor_766209 -1): max_pval = 0.00616, |min_val| =  0.038
+        (Sensor_775636 -1): max_pval = 0.00914, |min_val| =  0.037
+
+    Variable Sensor_775365 has 18 link(s):
+        (Sensor_775365 -1): max_pval = 0.00000, |min_val| =  0.704
+        (Sensor_718103 -3): max_pval = 0.00000, |min_val| =  0.318
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.186
+        (Sensor_775365 -2): max_pval = 0.00000, |min_val| =  0.142
+        (Sensor_717070 -1): max_pval = 0.00000, |min_val| =  0.128
+        (Sensor_716163 -6): max_pval = 0.00000, |min_val| =  0.099
+        (Sensor_766601 -3): max_pval = 0.00000, |min_val| =  0.095
+        (Sensor_775636 -2): max_pval = 0.00000, |min_val| =  0.075
+        (Sensor_764572 -1): max_pval = 0.00000, |min_val| =  0.065
+        (Sensor_767801 -1): max_pval = 0.00002, |min_val| =  0.060
+        (Sensor_716095 -4): max_pval = 0.00002, |min_val| =  0.060
+        (Sensor_717070 -5): max_pval = 0.00007, |min_val| =  0.056
+        (Sensor_767912 -1): max_pval = 0.00159, |min_val| =  0.044
+        (Sensor_764572 -6): max_pval = 0.00224, |min_val| =  0.043
+        (Sensor_774890 -1): max_pval = 0.00330, |min_val| =  0.041
+        (Sensor_716095 -1): max_pval = 0.00342, |min_val| =  0.041
+        (Sensor_764891 -1): max_pval = 0.00536, |min_val| =  0.039
+        (Sensor_772055 -1): max_pval = 0.00536, |min_val| =  0.039
+
+    Variable Sensor_775552 has 12 link(s):
+        (Sensor_775552 -1): max_pval = 0.00000, |min_val| =  0.761
+        (Sensor_775552 -2): max_pval = 0.00000, |min_val| =  0.246
+        (Sensor_718103 -3): max_pval = 0.00000, |min_val| =  0.210
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.155
+        (Sensor_770076 -4): max_pval = 0.00000, |min_val| =  0.079
+        (Sensor_716095 -6): max_pval = 0.00000, |min_val| =  0.074
+        (Sensor_769965 -1): max_pval = 0.00003, |min_val| =  0.059
+        (Sensor_770076 -3): max_pval = 0.00014, |min_val| =  0.054
+        (Sensor_767801 -1): max_pval = 0.00060, |min_val| =  0.048
+        (Sensor_718384 -1): max_pval = 0.00134, |min_val| =  0.045
+        (Sensor_776066 -1): max_pval = 0.00181, |min_val| =  0.044
+        (Sensor_771285 -6): max_pval = 0.00421, |min_val| =  0.040
+
+    Variable Sensor_775636 has 27 link(s):
+        (Sensor_775636 -1): max_pval = 0.00000, |min_val| =  0.405
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.289
+        (Sensor_718103 -1): max_pval = 0.00000, |min_val| =  0.259
+        (Sensor_717070 -3): max_pval = 0.00000, |min_val| =  0.176
+        (Sensor_718103 -2): max_pval = 0.00000, |min_val| =  0.137
+        (Sensor_775636 -4): max_pval = 0.00000, |min_val| =  0.137
+        (Sensor_766601 -2): max_pval = 0.00000, |min_val| =  0.124
+        (Sensor_716095 -6): max_pval = 0.00000, |min_val| =  0.110
+        (Sensor_775636 -5): max_pval = 0.00000, |min_val| =  0.096
+        (Sensor_766601 -3): max_pval = 0.00000, |min_val| =  0.094
+        (Sensor_716187 -1): max_pval = 0.00000, |min_val| =  0.088
+        (Sensor_769965 -4): max_pval = 0.00000, |min_val| =  0.086
+        (Sensor_769965 -1): max_pval = 0.00000, |min_val| =  0.079
+        (Sensor_770243 -6): max_pval = 0.00000, |min_val| =  0.074
+        (Sensor_775636 -2): max_pval = 0.00001, |min_val| =  0.062
+        (Sensor_769965 -3): max_pval = 0.00012, |min_val| =  0.054
+        (Sensor_768523 -1): max_pval = 0.00022, |min_val| =  0.052
+        (Sensor_717997 -1): max_pval = 0.00072, |min_val| =  0.048
+        (Sensor_716163 -2): max_pval = 0.00114, |min_val| =  0.046
+        (Sensor_767801 -6): max_pval = 0.00118, |min_val| =  0.046
+        (Sensor_772564 -1): max_pval = 0.00175, |min_val| =  0.044
+        (Sensor_772564 -6): max_pval = 0.00243, |min_val| =  0.043
+        (Sensor_773193 -1): max_pval = 0.00259, |min_val| =  0.042
+        (Sensor_774890 -1): max_pval = 0.00318, |min_val| =  0.041
+        (Sensor_716163 -1): max_pval = 0.00345, |min_val| =  0.041
+        (Sensor_777733 -1): max_pval = 0.00350, |min_val| =  0.041
+        (Sensor_770076 -4): max_pval = 0.00898, |min_val| =  0.037
+
+    Variable Sensor_775859 has 14 link(s):
+        (Sensor_775859 -1): max_pval = 0.00000, |min_val| =  0.529
+        (Sensor_760756 -1): max_pval = 0.00000, |min_val| =  0.125
+        (Sensor_772354 -1): max_pval = 0.00000, |min_val| =  0.124
+        (Sensor_718103 -4): max_pval = 0.00000, |min_val| =  0.123
+        (Sensor_772564 -1): max_pval = 0.00000, |min_val| =  0.082
+        (Sensor_717997 -1): max_pval = 0.00000, |min_val| =  0.070
+        (Sensor_716163 -1): max_pval = 0.00000, |min_val| =  0.066
+        (Sensor_775859 -4): max_pval = 0.00081, |min_val| =  0.047
+        (Sensor_775859 -3): max_pval = 0.00115, |min_val| =  0.046
+        (Sensor_770076 -2): max_pval = 0.00152, |min_val| =  0.045
+        (Sensor_716095 -1): max_pval = 0.00163, |min_val| =  0.044
+        (Sensor_774842 -1): max_pval = 0.00192, |min_val| =  0.044
+        (Sensor_716163 -4): max_pval = 0.00286, |min_val| =  0.042
+        (Sensor_716657 -1): max_pval = 0.00405, |min_val| =  0.040
+
+    Variable Sensor_776066 has 11 link(s):
+        (Sensor_776066 -1): max_pval = 0.00000, |min_val| =  0.765
+        (Sensor_718103 -2): max_pval = 0.00000, |min_val| =  0.296
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.192
+        (Sensor_776066 -2): max_pval = 0.00000, |min_val| =  0.184
+        (Sensor_766601 -3): max_pval = 0.00000, |min_val| =  0.082
+        (Sensor_717070 -1): max_pval = 0.00000, |min_val| =  0.070
+        (Sensor_717997 -1): max_pval = 0.00003, |min_val| =  0.058
+        (Sensor_717070 -2): max_pval = 0.00019, |min_val| =  0.052
+        (Sensor_718180 -1): max_pval = 0.00043, |min_val| =  0.049
+        (Sensor_771421 -4): max_pval = 0.00154, |min_val| =  0.044
+        (Sensor_775636 -1): max_pval = 0.00171, |min_val| =  0.044
+
+    Variable Sensor_776308 has 0 link(s):
+
+    Variable Sensor_776513 has 0 link(s):
+
+    Variable Sensor_777232 has 5 link(s):
+        (Sensor_777232 -1): max_pval = 0.00000, |min_val| =  0.759
+        (Sensor_777232 -2): max_pval = 0.00000, |min_val| =  0.190
+        (Sensor_718103 -3): max_pval = 0.00000, |min_val| =  0.098
+        (Sensor_766601 -1): max_pval = 0.00044, |min_val| =  0.049
+        (Sensor_775859 -1): max_pval = 0.00126, |min_val| =  0.045
+
+    Variable Sensor_777733 has 19 link(s):
+        (Sensor_777733 -1): max_pval = 0.00000, |min_val| =  0.765
+        (Sensor_777733 -2): max_pval = 0.00000, |min_val| =  0.255
+        (Sensor_718103 -2): max_pval = 0.00000, |min_val| =  0.160
+        (Sensor_766601 -1): max_pval = 0.00000, |min_val| =  0.160
+        (Sensor_718103 -3): max_pval = 0.00000, |min_val| =  0.116
+        (Sensor_717070 -1): max_pval = 0.00000, |min_val| =  0.109
+        (Sensor_716657 -1): max_pval = 0.00003, |min_val| =  0.059
+        (Sensor_717997 -4): max_pval = 0.00011, |min_val| =  0.054
+        (Sensor_716650 -1): max_pval = 0.00022, |min_val| =  0.052
+        (Sensor_717548 -5): max_pval = 0.00059, |min_val| =  0.048
+        (Sensor_716163 -2): max_pval = 0.00158, |min_val| =  0.044
+        (Sensor_771285 -1): max_pval = 0.00188, |min_val| =  0.044
+        (Sensor_766601 -3): max_pval = 0.00321, |min_val| =  0.041
+        (Sensor_716095 -6): max_pval = 0.00630, |min_val| =  0.038
+        (Sensor_772354 -2): max_pval = 0.00682, |min_val| =  0.038
+        (Sensor_771421 -4): max_pval = 0.00688, |min_val| =  0.038
+        (Sensor_718384 -5): max_pval = 0.00720, |min_val| =  0.038
+        (Sensor_774842 -2): max_pval = 0.00741, |min_val| =  0.038
+        (Sensor_765150 -4): max_pval = 0.00826, |min_val| =  0.037
+
+##
+## Step 2: PC algorithm with contemp. conditions and MCI tests
+##
+
+Parameters:
+
+independence test = par_corr
+tau_min = 0
+tau_max = 6
+pc_alpha = 0.01
+contemp_collider_rule = majority
+conflict_resolution = True
+reset_lagged_links = False
+max_conds_dim = None
+max_conds_py = None
+max_conds_px = None
+max_conds_px_lagged = None
+fdr_method = none
+
+
